@@ -12,6 +12,11 @@ public class GridController : MonoBehaviour
 
     public GameObject MovedUnit;
 
+    public static int ManhattanDistance(Vector2Int a, Vector2Int b)
+    {
+        return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);
+    }
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -27,6 +32,7 @@ public class GridController : MonoBehaviour
                 newTile.transform.localScale = TilePrefab.transform.localScale;
                 lastSpawnedTile = newTile.GetComponent<Tile>();
                 lastSpawnedTile.ParentController = this;
+                lastSpawnedTile.PositionInGrid = new Vector2Int(x, y);
                 tiles.Add(lastSpawnedTile);
 
                 spawnPosition.x += lastSpawnedTile.GetWorldBounds().size.x + TilesMargin.x;
@@ -37,6 +43,11 @@ public class GridController : MonoBehaviour
             t.transform.Translate(new Vector3(t.GetWorldBounds().size.x / 2, -t.GetWorldBounds().size.y / 2, 0));
     }
 
+    public void EnableValidTiles(Func<Tile, bool> Predicate)
+    {
+        foreach(var T in tiles)
+            T.SetTileTargetable(Predicate(T));
+    }
 
     public void SetGridEnabled(bool bEnabled)
     {

@@ -31,4 +31,12 @@ public class UnitAttributes : MonoBehaviour
                 Debug.LogError("eee, " + gameObject + " has multiple values for attribute: " + A);
         }
     }
+
+    public int? GetAttributeValue(Attribute a)
+    {
+        int index = Attributes.FindIndex((AttributeValuePair P) => { return P.Attribute == a; });
+        if(index < 0)
+            return null;
+        return Attributes[index].value;
+    }
 }

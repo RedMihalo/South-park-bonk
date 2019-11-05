@@ -13,6 +13,8 @@ public class ObjectMover : MonoBehaviour
     public float WaveTime = 0.5f;
     public GameObject BonesSet;
 
+    public Tile CurrentTile = null;
+
     public CharacterController CharacterController;
 
     public Animator Animator;

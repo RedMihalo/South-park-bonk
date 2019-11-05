@@ -7,12 +7,16 @@ public class Tile : MonoBehaviour
 {
     public Button ActiveButton;
 
+    public GameObject CurrentUnit = null;
+
     public Transform UnitPositionTransform;
     public Vector3 UnitPosition
     {
         get => UnitPositionTransform.position;
         // get => GetWorldBounds().center;
     }
+
+    public Vector2Int PositionInGrid;
 
     private GridController parentController;
     public GridController ParentController
@@ -24,7 +28,7 @@ public class Tile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ActiveButton.onClick.AddListener(() => BattleScreenManager.MoveUnit(UnitPosition));
+        ActiveButton.onClick.AddListener(() => { BattleScreenManager.SetUnitCurrentTile(this);  BattleScreenManager.MoveUnit(UnitPosition);  });
     }
     
 

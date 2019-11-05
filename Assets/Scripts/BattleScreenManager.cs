@@ -47,12 +47,13 @@ public class BattleScreenManager : MonoBehaviour
 
     public static void SetMovedUnit(GameObject NewMovedUnit)
     {
-        GetGridController().SetGridEnabled((bool)NewMovedUnit);
+        // GetGridController().SetGridEnabled((bool)NewMovedUnit);
         SetCharPickersEnabled(!(bool)NewMovedUnit);
         Instance.BattleShadeImage.transform.root.gameObject.SetActive(!(bool)NewMovedUnit);
 
         if(!NewMovedUnit)
         {
+            GetGridController().SetGridEnabled(false);
             if(Instance.MovedUnit)
                 Instance.MovedUnit.GetComponent<ObjectMover>().OnDestinationReached.RemoveListener(Instance.ResetMovedUnitCallback);
 
@@ -60,6 +61,17 @@ public class BattleScreenManager : MonoBehaviour
             return;
         }
 
+        UnitAttributes attributes = NewMovedUnit.GetComponent<UnitAttributes>();
+        int? range = attributes.GetAttributeValue(Attribute.Range);
+        GetGridController().EnableValidTiles((Tile t) => {
+            return 
+            t.CurrentUnit == null &&
+            (
+                NewMovedUnit.GetComponent<ObjectMover>().CurrentTile == null ||
+                GridController.ManhattanDistance(t.PositionInGrid, NewMovedUnit.GetComponent<ObjectMover>().CurrentTile.PositionInGrid) <=
+                    NewMovedUnit.GetComponent<UnitAttributes>().GetAttributeValue(Attribute.Range)
+            );
+        });
 
         Instance.CurrentState = BattleManagerState.TilePicking;
         Instance.MovedUnit = NewMovedUnit;
@@ -68,11 +80,21 @@ public class BattleScreenManager : MonoBehaviour
 
     private static void SetCharPickersEnabled(bool bEnabled)
     {
-        Debug.Log("Setting char pickers: " + FindObjectsOfType<CharacterPicker>().Length);
         foreach(var Picker in FindObjectsOfType<CharacterPicker>())
         {
             Picker.PickerEnabled = bEnabled;
         }
+    }
+
+    public static void SetUnitCurrentTile(Tile t)
+    {
+        if(!Instance.MovedUnit)
+            return;
+        if(Instance.MovedUnit.GetComponent<ObjectMover>().CurrentTile)
+            Instance.MovedUnit.GetComponent<ObjectMover>().CurrentTile.CurrentUnit = null;
+
+        Instance.MovedUnit.GetComponent<ObjectMover>().CurrentTile = t;
+        t.CurrentUnit = Instance.MovedUnit;
     }
 
     public static void MoveUnit(Vector3 target)
