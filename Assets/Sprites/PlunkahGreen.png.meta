@@ -1,0 +1,229 @@
+fileFormatVersion: 2
+guid: 6212dce00b60adf418575d67225c3014
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7704671274437912429
+    second: Leaf_Left
+  - first:
+      213: -801823610915422466
+    second: MainBody
+  - first:
+      213: -1118825027869278519
+    second: Leaf_Right
+  - first:
+      213: 8848584111080971661
+    second: LeafLeft
+  - first:
+      213: -6996422769209605356
+    second: LeaftRight
+  - first:
+      213: -7704671274437912429
+    second: PlunkahGreen_0
+  - first:
+      213: -801823610915422466
+    second: PlunkahGreen_1
+  - first:
+      213: -1118825027869278519
+    second: PlunkahGreen_2
+  - first:
+      213: 3815459975937299400
+    second: PlunkahGreen_3
+  - first:
+      213: -7960894621418987425
+    second: PlunkahGreen_4
+  - first:
+      213: 1231270961776314390
+    second: PlunkahGreen_5
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PlunkahGreen_0
+      rect:
+        serializedVersion: 2
+        x: 22.582396
+        y: 148
+        width: 250.66486
+        height: 355.54468
+      alignment: 9
+      pivot: {x: 0.5103133, y: 0.49923402}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25b71c4378dbed343a7a5ab847afa814
+      internalID: -7704671274437912429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlunkahGreen_1
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 421
+        width: 108
+        height: 72
+      alignment: 9
+      pivot: {x: 0.5, y: 0.6111111}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 187df7aa7cda7a54fb7aa7c991ea2693
+      internalID: -801823610915422466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlunkahGreen_2
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 393
+        width: 96
+        height: 69
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be32b7aaa35d9c34c9fc63f035e15281
+      internalID: -1118825027869278519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlunkahGreen_4
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 5
+        width: 194
+        height: 169
+      alignment: 9
+      pivot: {x: 0.49999997, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94e600adb6a32934aa03fbf8fa8cc099
+      internalID: -7960894621418987425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 2ac74cec5083d1b449bc879c741d566f
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 637075487892115441
+  assetBundleName: 
+  assetBundleVariant: 
