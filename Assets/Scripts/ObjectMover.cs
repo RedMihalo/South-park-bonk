@@ -26,7 +26,6 @@ public class ObjectMover : MonoBehaviour
     {
         // ProcessTouch();
 
-
         if(!bTargetReached)
             MoveTowardsTarget();
     }
@@ -86,12 +85,14 @@ public class ObjectMover : MonoBehaviour
         if(bTargetReached)
             return;
 
+        FacePosition(newTarget);
         Animator.SetBool("IsWaving", false);
 
-        BonesSet.transform.rotation = Quaternion.Euler(0, currentTarget.x > transform.position.x ? 180 : 0, 0);
         Animator.SetBool("IsWalking", true);
+    }
 
-
-
+    public void FacePosition(Vector3 position)
+    {
+        BonesSet.transform.rotation = Quaternion.Euler(0, position.x > transform.position.x ? 180 : 0, 0);
     }
 }

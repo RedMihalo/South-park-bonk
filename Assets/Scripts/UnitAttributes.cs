@@ -8,7 +8,8 @@ public enum Attribute
 {
     Range,
     Defence,
-    Attack
+    Attack,
+    MaxHealth
 }
 
 [System.Serializable]
@@ -32,11 +33,11 @@ public class UnitAttributes : MonoBehaviour
         }
     }
 
-    public int? GetAttributeValue(Attribute a)
+    public int GetAttributeValue(Attribute a)
     {
         int index = Attributes.FindIndex((AttributeValuePair P) => { return P.Attribute == a; });
         if(index < 0)
-            return null;
+            return -1;
         return Attributes[index].value;
     }
 }
