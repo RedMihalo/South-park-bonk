@@ -47,8 +47,8 @@ public class ObjectMover : MonoBehaviour
         positionDelta.Normalize();
         positionDelta *= Time.deltaTime * Speed;
 
-        CharacterController.Move(positionDelta);
-
+        // CharacterController.Move(positionDelta);
+        transform.Translate(positionDelta);
     }
 
     private void StopWaving()
@@ -79,6 +79,7 @@ public class ObjectMover : MonoBehaviour
 
     public void SetCurrentTarget(Vector3 newTarget)
     {
+        transform.Translate(0, 0.2f, 0);
         currentTarget = newTarget;
         float distance = Vector3.Distance(transform.position, newTarget);
         bTargetReached = distance <= AcceptanceRadius;
