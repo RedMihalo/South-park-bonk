@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class ObjectMover : MonoBehaviour
 {
 
     private Vector3 currentTarget;
     private bool bTargetReached = true;
+
+    public bool AllowFreeMove = false;
+    // only important for free move
+    public Collider2D WalkArea;
     public float AcceptanceRadius = 1.0f;
     public float Speed = 1.0f;
     public float WaveTime = 0.5f;
@@ -24,7 +29,8 @@ public class ObjectMover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ProcessTouch();
+        if(AllowFreeMove)
+            ProcessTouch();
 
         if(!bTargetReached)
             MoveTowardsTarget();
@@ -34,10 +40,7 @@ public class ObjectMover : MonoBehaviour
     {
         if(Vector3.Distance(currentTarget, transform.position) <= AcceptanceRadius)
         {
-            bTargetReached = true;
-            Animator.SetBool("IsWalking", false);
-            Animator.SetBool("IsWaving", true);
-            OnDestinationReached.Invoke();
+            ReachTarget();
             return;
         }
 
@@ -45,8 +48,18 @@ public class ObjectMover : MonoBehaviour
         positionDelta.Normalize();
         positionDelta *= Time.deltaTime * Speed;
 
-        // CharacterController.Move(positionDelta);
-        transform.Translate(positionDelta);
+        if(AllowFreeMove)
+            CharacterController.Move(positionDelta);
+        else
+            transform.Translate(positionDelta);
+    }
+
+    public void ReachTarget()
+    {
+        bTargetReached = true;
+        Animator.SetBool("IsWalking", false);
+        Animator.SetBool("IsWaving", true);
+        OnDestinationReached.Invoke();
     }
 
     private void StopWaving()
@@ -59,6 +72,12 @@ public class ObjectMover : MonoBehaviour
         if(Input.touches.Length < 1)
             return;
 
+        if(EventSystem.current.IsPointerOverGameObject(0))
+            return;
+
+        if(Input.GetTouch(0).phase == TouchPhase.Ended)
+            return;
+
         Vector2 touchPosition = Input.GetTouch(0).position;
         Camera currentCamera = Camera.main;
         if(!currentCamera)
@@ -67,6 +86,8 @@ public class ObjectMover : MonoBehaviour
             return;
         }
         Vector3 worldSpacePosition = currentCamera.ScreenToWorldPoint(touchPosition);
+        if(WalkArea != null)
+            worldSpacePosition = WalkArea.bounds.ClosestPoint(worldSpacePosition);
 
         worldSpacePosition.z = transform.position.z;
 

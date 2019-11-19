@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[System.Serializable]
+[Serializable]
 public enum BattleManagerState
 {
     ModePicking,
@@ -28,6 +28,7 @@ public class BattleScreenManager : MonoBehaviour
 
     public Button AttackButton;
     public Button MoveButton;
+    public Button BackButton;
 
     private static readonly Func<Tile, GameObject, bool> TileInMoveRange = (Tile t, GameObject Unit) =>
     {
@@ -71,6 +72,7 @@ public class BattleScreenManager : MonoBehaviour
     {
         AttackButton.onClick.AddListener(() => SetCurrentState(BattleManagerState.Atttacking));
         MoveButton.onClick.AddListener(() => SetCurrentState(BattleManagerState.Moving));
+        BackButton.onClick.AddListener(() => SetMovedUnit(null));
 
         SetCurrentState(BattleManagerState.ModePicking);
         //GridController.SetGridEnabled(false);
@@ -83,6 +85,7 @@ public class BattleScreenManager : MonoBehaviour
     {
         Instance.AttackButton.gameObject.SetActive(bActive);
         Instance.MoveButton.gameObject.SetActive(bActive);
+        Instance.BackButton.gameObject.SetActive(!bActive);
     }
 
     public static void SetCurrentState(BattleManagerState NewState)
@@ -101,7 +104,6 @@ public class BattleScreenManager : MonoBehaviour
                 SetCharPickersEnabled(false);
                 SetButtonsActive(true);
                 GetGridController().SetGridEnabled(false);
-                Debug.Log("EEEE");
                 break;
             case BattleManagerState.TargetPicking:
                 break;
