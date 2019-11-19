@@ -38,7 +38,6 @@ public class ObjectMover : MonoBehaviour
             Animator.SetBool("IsWalking", false);
             Animator.SetBool("IsWaving", true);
             OnDestinationReached.Invoke();
-            // WaveStopper = StartCoroutine(StopWaving());
             return;
         }
 
@@ -52,8 +51,6 @@ public class ObjectMover : MonoBehaviour
 
     private void StopWaving()
     {
-        // yield return new WaitForSeconds(WaveTime);
-
         Animator.SetBool("IsWaving", false);
     }
 
@@ -89,6 +86,11 @@ public class ObjectMover : MonoBehaviour
         Animator.SetBool("IsWaving", false);
 
         Animator.SetBool("IsWalking", true);
+    }
+
+    public void FaceObject(GameObject target)
+    {
+        FacePosition(target.transform.position);
     }
 
     public void FacePosition(Vector3 position)

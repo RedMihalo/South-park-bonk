@@ -7,6 +7,7 @@ public class BattleUnit : MonoBehaviour
 {
     public Animator animator;
     public UnitAttributes Attributes;
+    public ObjectMover Mover;
 
     private BattleUnit CurrentTarget;
 
@@ -25,12 +26,6 @@ public class BattleUnit : MonoBehaviour
         Health = MaxHealth;
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-            Attack(this);
-    }
-
     public void Attack(BattleUnit target)
     {
         if(bBusy)
@@ -40,14 +35,28 @@ public class BattleUnit : MonoBehaviour
         CurrentTarget = target;
     }
 
+    public void Attack(GameObject target)
+    {
+        BattleUnit asBattleUnit = target.GetComponent<BattleUnit>();
+        if(!asBattleUnit)
+        {
+            Debug.Log("Missing battle unit componet");
+            return;
+        }
+        Mover.FaceObject(target);
+        Attack(asBattleUnit);
+    }
+
     public void FinishAttack()
     {
         bBusy = false;
-        CurrentTarget.GetDamage(this, Attributes.GetAttributeValue(Attribute.Attack));
+        CurrentTarget.ReceiveDamage(this, Attributes.GetAttributeValue(Attribute.Attack));
         animator.SetBool("IsAttacking", false);
+        BattleScreenManager.SetMovedUnit(null);
+        // BattleScreenManager.SetCurrentState(BattleManagerState.ModePicking);
     }
 
-    public void GetDamage(BattleUnit damageDealer, int amount)
+    public void ReceiveDamage(BattleUnit damageDealer, int amount)
     {
         Health -= amount;
         Health = Mathf.Clamp(Health, 0, MaxHealth);

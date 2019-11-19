@@ -28,7 +28,10 @@ public class Tile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ActiveButton.onClick.AddListener(() => { BattleScreenManager.SetUnitCurrentTile(this);  BattleScreenManager.MoveUnit(UnitPosition);  });
+        ActiveButton.onClick.AddListener(() => {
+            // BattleScreenManager.SetUnitCurrentTile(this);  BattleScreenManager.MoveUnit(UnitPosition);
+            BattleScreenManager.TileClicked(this);
+        });
     }
     
 

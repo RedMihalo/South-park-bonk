@@ -46,6 +46,11 @@ public class BattleScreenManager : MonoBehaviour
         return GridController.ManhattanDistance(Unit.GetComponent<ObjectMover>().CurrentTile.PositionInGrid, t.PositionInGrid) == 1;
     };
 
+    private static readonly Func<Tile, GameObject, bool> UnitInMeleeRange = (Tile t, GameObject Unit) =>
+    {
+        return TileInMeleeAttackRange(t, Unit) && t.CurrentUnit != null;
+    };
+
     public static GridController GetGridController()
     {
         return Instance.GridController;
@@ -64,8 +69,8 @@ public class BattleScreenManager : MonoBehaviour
 
     private void Start()
     {
-        AttackButton.onClick.AddListener(() => Instance.SetCurrentState(BattleManagerState.Atttacking));
-        MoveButton.onClick.AddListener(() => Instance.SetCurrentState(BattleManagerState.Moving));
+        AttackButton.onClick.AddListener(() => SetCurrentState(BattleManagerState.Atttacking));
+        MoveButton.onClick.AddListener(() => SetCurrentState(BattleManagerState.Moving));
 
         SetCurrentState(BattleManagerState.ModePicking);
         //GridController.SetGridEnabled(false);
@@ -74,16 +79,16 @@ public class BattleScreenManager : MonoBehaviour
         // Instance.BattleShadeImage.gameObject.SetActive(true);
     }
 
-    private void SetButtonsActive(bool bActive)
+    private static void SetButtonsActive(bool bActive)
     {
-        AttackButton.gameObject.SetActive(bActive);
-        MoveButton.gameObject.SetActive(bActive);
+        Instance.AttackButton.gameObject.SetActive(bActive);
+        Instance.MoveButton.gameObject.SetActive(bActive);
     }
 
-    private void SetCurrentState(BattleManagerState NewState)
+    public static void SetCurrentState(BattleManagerState NewState)
     {
         Instance.CurrentState = NewState;
-        switch(CurrentState)
+        switch(Instance.CurrentState)
         {
             case BattleManagerState.Atttacking:
             case BattleManagerState.Moving:
@@ -96,6 +101,7 @@ public class BattleScreenManager : MonoBehaviour
                 SetCharPickersEnabled(false);
                 SetButtonsActive(true);
                 GetGridController().SetGridEnabled(false);
+                Debug.Log("EEEE");
                 break;
             case BattleManagerState.TargetPicking:
                 break;
@@ -115,7 +121,7 @@ public class BattleScreenManager : MonoBehaviour
 
         if(!NewMovedUnit)
         {
-            Instance.SetCurrentState(BattleManagerState.ModePicking);
+            SetCurrentState(BattleManagerState.ModePicking);
             //GetGridController().SetGridEnabled(false);
             //if(Instance.MovedUnit)
             //    Instance.MovedUnit.GetComponent<ObjectMover>().OnDestinationReached.RemoveListener(Instance.ResetMovedUnitCallback);
@@ -127,7 +133,7 @@ public class BattleScreenManager : MonoBehaviour
         if(Instance.CurrentState == BattleManagerState.Moving)
             GetGridController().EnableValidTiles((Tile t) => { return TileInMoveRange(t, NewMovedUnit); });
         else if(Instance.CurrentState == BattleManagerState.Atttacking)
-            GetGridController().EnableValidTiles((Tile t) => { return TileInMeleeAttackRange(t, NewMovedUnit); });
+            GetGridController().EnableValidTiles((Tile t) => { return UnitInMeleeRange(t, NewMovedUnit); });
 
         // Instance.CurrentState = BattleManagerState.TilePicking;
         Instance.MovedUnit.GetComponent<ObjectMover>().OnDestinationReached.AddListener(Instance.ResetMovedUnitCallback);
@@ -138,6 +144,26 @@ public class BattleScreenManager : MonoBehaviour
         foreach(var Picker in FindObjectsOfType<CharacterPicker>())
         {
             Picker.PickerEnabled = bEnabled;
+        }
+    }
+
+    public static void TileClicked(Tile t)
+    {
+        switch(Instance.CurrentState)
+        {
+            case BattleManagerState.Moving:
+                SetUnitCurrentTile(t);
+                MoveUnit(t.UnitPosition);
+                break;
+            case BattleManagerState.Atttacking:
+                GameObject target = t.CurrentUnit;
+                if(target == null)
+                    return;
+                Instance.MovedUnit.GetComponent<BattleUnit>().Attack(target);
+                break;
+            default:
+                Debug.LogError("This shoudln't happen");
+                break;
         }
     }
 

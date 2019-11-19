@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 2.7394032
+  m_Length: 2.7394035
   m_ChildTransform: {fileID: 646032747332007339}
   m_AttachedIK: {fileID: 0}
 --- !u!1 &646032746028395115
@@ -604,6 +604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 646032747307505919}
   Attributes: {fileID: 5256876424703654637}
+  Mover: {fileID: 646032747307505918}
   OnDamageTaken:
     m_PersistentCalls:
       m_Calls: []
