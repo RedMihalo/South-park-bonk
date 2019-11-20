@@ -43,6 +43,11 @@ public class GridController : MonoBehaviour
             t.transform.Translate(new Vector3(t.GetWorldBounds().size.x / 2, -t.GetWorldBounds().size.y / 2, 0));
     }
 
+    public Tile GetTile(Vector2Int positionInGrid)
+    {
+        return tiles.Find((Tile t) => { return t.PositionInGrid == positionInGrid; });
+    }
+
     public void EnableValidTiles(Predicate<Tile> Predicate)
     {
         foreach(var T in tiles)

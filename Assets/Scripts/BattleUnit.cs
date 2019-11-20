@@ -8,6 +8,10 @@ public class BattleUnit : MonoBehaviour
     public Animator animator;
     public UnitAttributes Attributes;
     public ObjectMover Mover;
+    public Vector2Int InitialGridPosition;
+    public Tile CurrentTile = null;
+
+    public UnitTeam team;
 
     private BattleUnit CurrentTarget;
 
@@ -24,6 +28,7 @@ public class BattleUnit : MonoBehaviour
     {
         MaxHealth = gameObject.GetComponent<UnitAttributes>().GetAttributeValue(Attribute.MaxHealth);
         Health = MaxHealth;
+
     }
 
     public void Attack(BattleUnit target)
@@ -45,6 +50,15 @@ public class BattleUnit : MonoBehaviour
         }
         Mover.FaceObject(target);
         Attack(asBattleUnit);
+    }
+
+    public void MoveToStartPosition()
+    {
+        Tile startingTile = BattleScreenManager.GetGridController().GetTile(InitialGridPosition);
+        CurrentTile = startingTile;
+        // this shouldn't be here
+        CurrentTile.CurrentUnit = gameObject;
+        GetComponent<ObjectMover>().SetCurrentTarget(CurrentTile.UnitPosition);
     }
 
     public void FinishAttack()

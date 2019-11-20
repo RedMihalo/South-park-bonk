@@ -19,7 +19,7 @@ public class DialogBoxController : MonoBehaviour
         HideDialog();
     }
 
-    public void SetTalker(NpcButton npc)
+    public void SetTalker(NpcController npc)
     {
         DialogAvatar.sprite = npc.DialogAvatar;
         DialogText.text = npc.RandomDialogLine;

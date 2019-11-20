@@ -10,9 +10,7 @@ public enum BattleManagerState
     ModePicking,
     Moving,
     Atttacking,
-    CharacterPicking,
-    TilePicking,
-    TargetPicking
+    CharacterPicking
 }
 
 public class BattleScreenManager : MonoBehaviour
@@ -35,16 +33,16 @@ public class BattleScreenManager : MonoBehaviour
         if(t.CurrentUnit != null)
             return false;
         return
-            Unit.GetComponent<ObjectMover>().CurrentTile == null ||
-            GridController.ManhattanDistance(t.PositionInGrid, Unit.GetComponent<ObjectMover>().CurrentTile.PositionInGrid) <=
+            Unit.GetComponent<BattleUnit>().CurrentTile == null ||
+            GridController.ManhattanDistance(t.PositionInGrid, Unit.GetComponent<BattleUnit>().CurrentTile.PositionInGrid) <=
             Unit.GetComponent<UnitAttributes>().GetAttributeValue(Attribute.Range);
     };
 
     private static readonly Func<Tile, GameObject, bool> TileInMeleeAttackRange = (Tile t, GameObject Unit) =>
     {
-        if(Unit.GetComponent<ObjectMover>().CurrentTile == null)
+        if(Unit.GetComponent<BattleUnit>().CurrentTile == null)
             return false;
-        return GridController.ManhattanDistance(Unit.GetComponent<ObjectMover>().CurrentTile.PositionInGrid, t.PositionInGrid) == 1;
+        return GridController.ManhattanDistance(Unit.GetComponent<BattleUnit>().CurrentTile.PositionInGrid, t.PositionInGrid) == 1;
     };
 
     private static readonly Func<Tile, GameObject, bool> UnitInMeleeRange = (Tile t, GameObject Unit) =>
@@ -75,14 +73,11 @@ public class BattleScreenManager : MonoBehaviour
         BackButton.onClick.AddListener(() => SetMovedUnit(null));
 
         SetCurrentState(BattleManagerState.ModePicking);
-        //GridController.SetGridEnabled(false);
-        //SetCharPickersEnabled(true);
-        //SetButtonsActive(true);
-        // Instance.BattleShadeImage.gameObject.SetActive(true);
     }
 
     private static void SetButtonsActive(bool bActive)
     {
+        Debug.Log(bActive);
         Instance.AttackButton.gameObject.SetActive(bActive);
         Instance.MoveButton.gameObject.SetActive(bActive);
         Instance.BackButton.gameObject.SetActive(!bActive);
@@ -105,16 +100,11 @@ public class BattleScreenManager : MonoBehaviour
                 SetButtonsActive(true);
                 GetGridController().SetGridEnabled(false);
                 break;
-            case BattleManagerState.TargetPicking:
-                break;
-            case BattleManagerState.TilePicking:
-                break;
         }
     }
 
     public static void SetMovedUnit(GameObject NewMovedUnit)
     {
-        // GetGridController().SetGridEnabled((bool)NewMovedUnit);
         SetCharPickersEnabled(!(bool)NewMovedUnit);
         Instance.BattleShadeImage.transform.root.gameObject.SetActive(!(bool)NewMovedUnit);
         if(Instance.MovedUnit)
@@ -124,21 +114,28 @@ public class BattleScreenManager : MonoBehaviour
         if(!NewMovedUnit)
         {
             SetCurrentState(BattleManagerState.ModePicking);
-            //GetGridController().SetGridEnabled(false);
-            //if(Instance.MovedUnit)
-            //    Instance.MovedUnit.GetComponent<ObjectMover>().OnDestinationReached.RemoveListener(Instance.ResetMovedUnitCallback);
-
-            //Instance.CurrentState = BattleManagerState.CharacterPicking;
             return;
         }
 
-        if(Instance.CurrentState == BattleManagerState.Moving)
-            GetGridController().EnableValidTiles((Tile t) => { return TileInMoveRange(t, NewMovedUnit); });
-        else if(Instance.CurrentState == BattleManagerState.Atttacking)
-            GetGridController().EnableValidTiles((Tile t) => { return UnitInMeleeRange(t, NewMovedUnit); });
+        EnableValidTiles();
 
-        // Instance.CurrentState = BattleManagerState.TilePicking;
+
+        SetButtonsActive(false);
+
         Instance.MovedUnit.GetComponent<ObjectMover>().OnDestinationReached.AddListener(Instance.ResetMovedUnitCallback);
+    }
+
+    public static void EnableValidTiles()
+    {
+        switch(Instance.CurrentState)
+        {
+            case BattleManagerState.Moving:
+                GetGridController().EnableValidTiles((Tile t) => { return TileInMoveRange(t, Instance.MovedUnit); });
+                break;
+            case BattleManagerState.Atttacking:
+                GetGridController().EnableValidTiles((Tile t) => { return UnitInMeleeRange(t, Instance.MovedUnit); });
+                break;
+        }
     }
 
     private static void SetCharPickersEnabled(bool bEnabled)
@@ -173,10 +170,10 @@ public class BattleScreenManager : MonoBehaviour
     {
         if(!Instance.MovedUnit)
             return;
-        if(Instance.MovedUnit.GetComponent<ObjectMover>().CurrentTile)
-            Instance.MovedUnit.GetComponent<ObjectMover>().CurrentTile.CurrentUnit = null;
+        if(Instance.MovedUnit.GetComponent<BattleUnit>().CurrentTile)
+            Instance.MovedUnit.GetComponent<BattleUnit>().CurrentTile.CurrentUnit = null;
 
-        Instance.MovedUnit.GetComponent<ObjectMover>().CurrentTile = t;
+        Instance.MovedUnit.GetComponent<BattleUnit>().CurrentTile = t;
         t.CurrentUnit = Instance.MovedUnit;
     }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NpcButton : MonoBehaviour
+public class NpcController : MonoBehaviour
 {
     public Button InteractButton;
     public GameObject InteractLocation;

@@ -10,8 +10,7 @@ public class HealthBar : MonoBehaviour
 
     private void Start()
     {
-        Unit.OnDamageTaken.AddListener((BattleUnit target, BattleUnit dealer, int amount) =>
-        {
+        Unit.OnDamageTaken.AddListener((BattleUnit target, BattleUnit dealer, int amount) => {
             UpdatePercentage((float)(target.Health) / (float)(target.MaxHealth));
         });
     }
