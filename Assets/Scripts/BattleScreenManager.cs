@@ -21,7 +21,6 @@ public class BattleScreenManager : MonoBehaviour
 
     public GridController GridController;
 
-    public Image BattleShadeImage;
     private BattleManagerState CurrentState = BattleManagerState.CharacterPicking;
 
     public Button AttackButton;
@@ -77,7 +76,6 @@ public class BattleScreenManager : MonoBehaviour
 
     private static void SetButtonsActive(bool bActive)
     {
-        Debug.Log(bActive);
         Instance.AttackButton.gameObject.SetActive(bActive);
         Instance.MoveButton.gameObject.SetActive(bActive);
         Instance.BackButton.gameObject.SetActive(!bActive);
@@ -106,7 +104,6 @@ public class BattleScreenManager : MonoBehaviour
     public static void SetMovedUnit(GameObject NewMovedUnit)
     {
         SetCharPickersEnabled(!(bool)NewMovedUnit);
-        Instance.BattleShadeImage.transform.root.gameObject.SetActive(!(bool)NewMovedUnit);
         if(Instance.MovedUnit)
             Instance.MovedUnit.GetComponent<ObjectMover>().OnDestinationReached.RemoveListener(Instance.ResetMovedUnitCallback);
         Instance.MovedUnit = NewMovedUnit;
