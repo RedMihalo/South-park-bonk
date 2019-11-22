@@ -8,6 +8,7 @@ public class DialogBoxController : MonoBehaviour
     public Image Background;
     public Image DialogAvatar;
     public Text DialogText;
+    Coroutine closeRoutine;
 
     public static DialogBoxController DialogController;
 
@@ -24,7 +25,12 @@ public class DialogBoxController : MonoBehaviour
         DialogAvatar.sprite = npc.DialogAvatar;
         DialogText.text = npc.RandomDialogLine;
         ShowDialog();
-        StartCoroutine(HideDialogDelayed());
+        if(closeRoutine != null)
+        {
+            StopCoroutine(closeRoutine);
+            closeRoutine = null;
+        }
+        closeRoutine = StartCoroutine(HideDialogDelayed());
     }
 
     private void ShowDialog()
