@@ -38,7 +38,7 @@ public class PlayerController : Controller
     private void SetState(ControllerState s)
     {
         this.state = s;
-        SetCharactersPickerEnabled(true);
+        SetCharactersPickerEnabled(s == ControllerState.Atttacking || s == ControllerState.Moving);
         UpdateDisplayedButtons();
     }
 
@@ -47,7 +47,8 @@ public class PlayerController : Controller
         switch(state)
         {
             case ControllerState.Atttacking:
-                GridController.GetGridController().EnableValidTiles((Tile t) => { return UnitInMeleeRange(t, CurrentUnit); });
+                GridController.GetGridController().EnableValidTiles((Tile t) => { return UnitInMeleeRange(t, CurrentUnit) &&
+                    t.CurrentUnit.GetComponent<BattleUnit>().team != CurrentUnit.GetComponent<BattleUnit>().team; });
                 break;
             case ControllerState.Moving:
                 GridController.GetGridController().EnableValidTiles((Tile t) => { return TileInMoveRange(t, CurrentUnit); });
@@ -64,6 +65,13 @@ public class PlayerController : Controller
         MoveButton.gameObject.SetActive(state == ControllerState.ModePicking);
         AttackButton.gameObject.SetActive(state == ControllerState.ModePicking);
         CancelButton.gameObject.SetActive(state != ControllerState.ModePicking);
+    }
+
+    private void DisableButtons()
+    {
+        MoveButton.gameObject.SetActive(false);
+        AttackButton.gameObject.SetActive(false);
+        CancelButton.gameObject.SetActive(false);
     }
 
     public override void ReceiveControl()
@@ -95,5 +103,12 @@ public class PlayerController : Controller
     {
         foreach(GameObject u in Units)
             u.GetComponent<CharacterPicker>().PickerEnabled = bEnabled;
+    }
+
+    public override void PassControl()
+    {
+        base.PassControl();
+        DisableButtons();
+        GridController.GetGridController().SetGridEnabled(false);
     }
 }

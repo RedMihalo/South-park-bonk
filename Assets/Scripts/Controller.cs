@@ -16,8 +16,10 @@ public enum ControllerState
 public abstract class Controller : MonoBehaviour
 {
     public List<UnitSerializeInfo> SerializedUnits = new List<UnitSerializeInfo>();
-    protected List<GameObject> Units = new List<GameObject>();
-    protected GameObject CurrentUnit = null;
+    [HideInInspector]
+    public List<GameObject> Units = new List<GameObject>();
+    [HideInInspector]
+    public GameObject CurrentUnit = null;
     public GameObject UnitPrefab;
 
     // public BattleScreenManager BattleManager;
@@ -43,7 +45,9 @@ public abstract class Controller : MonoBehaviour
     {
         if(Unit.GetComponent<BattleUnit>().CurrentTile == null)
             return false;
-        return GridController.ManhattanDistance(Unit.GetComponent<BattleUnit>().CurrentTile.PositionInGrid, t.PositionInGrid) == 1;
+        return 
+            GridController.ManhattanDistance(Unit.GetComponent<BattleUnit>().CurrentTile.PositionInGrid, t.PositionInGrid) <=
+            Unit.GetComponent<UnitAttributes>().GetAttributeValue(Attribute.AttackRange);
     };
 
     protected static readonly Func<Tile, GameObject, bool> UnitInMeleeRange = (Tile t, GameObject Unit) =>
@@ -86,6 +90,13 @@ public abstract class Controller : MonoBehaviour
         CurrentUnit = unit;
     }
 
+    public List<GameObject> GetUnits()
+    {
+        List<GameObject> toReturn = new List<GameObject>();
+        Units.ForEach((GameObject o) => toReturn.Add(o));
+        return toReturn;
+    }
+
     protected void MoveUnit(Tile target)
     {
         CurrentUnit.GetComponent<ObjectMover>().OnDestinationReached.AddListener(DestinationReachedCallback);
@@ -106,7 +117,7 @@ public abstract class Controller : MonoBehaviour
 
     public abstract void ReceiveControl();
 
-    public void PassControl()
+    public virtual void PassControl()
     {
         CurrentUnit = null;
         NextController.ReceiveControl();

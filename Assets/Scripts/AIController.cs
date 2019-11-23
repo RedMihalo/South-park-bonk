@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AIController : Controller
 {
+
     public override void Start()
     {
         MoveOrder = 1;
@@ -14,9 +16,82 @@ public class AIController : Controller
         base.Start();
     }
 
+    private void ChooseAction()
+    {
+        List<GameObject> unitsWithTarget = Units.FindAll((GameObject o) => o.GetComponent<BattleUnit>().HasUnitsInAttackRange());
+        if(unitsWithTarget.Count > 0)
+            Attack();
+        else
+            Move();
+    }
+
+    private void Attack()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private void Move()
+    {
+        PickUnit(Units[Random.Range(0, Units.Count)]);
+        Tile target = GridController.GetGridController().GetTile(
+            CurrentUnit.GetComponent<BattleUnit>().CurrentTile.PositionInGrid + new Vector2Int(-1, 0)
+            );
+        List<GameObject> potentialUnits = NextController.GetUnits().FindAll((GameObject o) => {
+            return GridController.ManhattanDistance(
+                CurrentUnit.GetComponent<BattleUnit>().CurrentTile, o.GetComponent<BattleUnit>().CurrentTile
+                ) <= CurrentUnit.GetComponent<UnitAttributes>().GetAttributeValue(Attribute.Range);
+        });
+        potentialUnits.Sort((GameObject a, GameObject b) =>
+        {
+            return GridController.ManhattanDistance(a.GetComponent<BattleUnit>().CurrentTile, b.GetComponent<BattleUnit>().CurrentTile);
+        });
+        Debug.Log(potentialUnits.Count);
+        if(potentialUnits.Count == 0)
+        {
+            Debug.Log("BONGOS");
+            PassControl();
+            return;
+        }
+
+        MoveUnit(GridController.GetGridController().GetTile(potentialUnits[0].GetComponent<BattleUnit>().CurrentTile.PositionInGrid + new Vector2Int(1, 0)));
+        // GridController.GetGridController().EnableValidTiles((Tile t) => potentialUnits.Contains(t.CurrentUnit));
+
+        // StartCoroutine(PassCorutine());
+
+        //var possibleTargets = NextController.GetUnits();
+        //possibleTargets.Sort((GameObject a, GameObject b) =>
+        //{
+        //    return GridController.ManhattanDistance(a.GetComponent<BattleUnit>().CurrentTile, b.GetComponent<BattleUnit>().CurrentTile);
+        //});
+
+
+        //GameObject unitToMoveTo = possibleTargets.Count > 0 ? possibleTargets[0] : null;
+        //if(unitToMoveTo)
+        //    throw new System.Exception("Oh boy");
+
+        //List<Tile> targetTiles = GridController.GetGridController().Gettiles().FindAll((Tile t) => TileInMoveRange(t, unitToMoveTo));
+        //targetTiles.Sort((Tile a, Tile b) => 
+        //    GridController.ManhattanDistance(a, b)
+        //);
+
+        //MoveUnit(targetTiles[0]);
+    }
+
+    private List<Tile> GetTileNextToTarget(GameObject target)
+    {
+        return GridController.GetGridController().Gettiles().FindAll((Tile t) => Controller.TileInMeleeAttackRange(t, target));
+    }
+
+    private IEnumerator PassCorutine()
+    {
+        Debug.Log("Waiting....");
+        yield return new WaitForSeconds(2);
+        Debug.Log("Passing");
+        PassControl();
+    }
+
     public override void ReceiveControl()
     {
-        Debug.Log("AI received control");
-        PassControl();
+        ChooseAction();
     }
 }

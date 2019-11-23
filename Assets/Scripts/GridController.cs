@@ -21,6 +21,11 @@ public class GridController : MonoBehaviour
         return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);
     }
 
+    public static int ManhattanDistance(Tile a, Tile b)
+    {
+        return ManhattanDistance(a.PositionInGrid, b.PositionInGrid);
+    }
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -60,9 +65,16 @@ public class GridController : MonoBehaviour
         return tiles.Find((Tile t) => { return t.PositionInGrid == positionInGrid; });
     }
 
+    public void MoveUnit(GameObject unit, Vector2Int positionInGrid)
+    {
+        MoveUnit(unit, GetTile(positionInGrid));
+    }
+
     public void MoveUnit(GameObject unit, Tile target)
     {
-        unit.GetComponent<BattleUnit>().CurrentTile.CurrentUnit = null;
+        if(unit.GetComponent<BattleUnit>().CurrentTile != null)
+            unit.GetComponent<BattleUnit>().CurrentTile.CurrentUnit = null;
+
         unit.GetComponent<BattleUnit>().CurrentTile = target;
         unit.GetComponent<ObjectMover>().SetCurrentTarget(target.UnitPosition);
         target.CurrentUnit = unit;

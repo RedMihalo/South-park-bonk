@@ -14,12 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Attributes:
   - Attribute: 0
-    value: 0
-  - Attribute: 0
-    value: 0
-  - Attribute: 0
-    value: 0
-  - Attribute: 0
-    value: 0
-  - Attribute: 0
-    value: 0
+    value: 5
+  - Attribute: 1
+    value: 1
+  - Attribute: 2
+    value: 2
+  - Attribute: 3
+    value: 10

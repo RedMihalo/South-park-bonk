@@ -35,6 +35,24 @@ public class BattleUnit : MonoBehaviour
 
     }
 
+    public List<GameObject> GetUnitsInRange()
+    {
+        List<GameObject> units = new List<GameObject>();
+        GridController.GetGridController().Gettiles().FindAll(
+            (Tile t) => t.CurrentUnit != null && t.CurrentUnit.GetComponent<BattleUnit>().team != team
+            ).ForEach((Tile t) => units.Add(t.CurrentUnit));
+        return units;
+    }
+
+    public bool HasUnitsInAttackRange()
+    {
+        return GridController.GetGridController().Gettiles()
+            .FindAll((Tile t) => GridController.ManhattanDistance(CurrentTile, t) <= GetComponent<UnitAttributes>().GetAttributeValue(Attribute.AttackRange))
+            .FindAll((Tile t) => t.CurrentUnit != null)
+            .FindAll((Tile t) => t.CurrentUnit.GetComponent<BattleUnit>().team != team)
+            .Count > 0;
+    }
+
     public void Attack(BattleUnit target)
     {
         if(bBusy)
@@ -59,10 +77,7 @@ public class BattleUnit : MonoBehaviour
     public void MoveToStartPosition()
     {
         Tile startingTile = GridController.GetGridController().GetTile(InitialGridPosition);
-        CurrentTile = startingTile;
-        // this shouldn't be here
-        CurrentTile.CurrentUnit = gameObject;
-        GetComponent<ObjectMover>().SetCurrentTarget(CurrentTile.UnitPosition);
+        GridController.GetGridController().MoveUnit(gameObject, startingTile);
     }
 
     public void FinishAttack()

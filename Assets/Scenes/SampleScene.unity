@@ -829,6 +829,7 @@ MonoBehaviour:
     team: 1
   UnitPrefab: {fileID: 646032747307505916, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
     type: 3}
+  NextController: {fileID: 1658442652}
 --- !u!4 &1195857551
 Transform:
   m_ObjectHideFlags: 0
@@ -841,7 +842,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1398212354
 GameObject:
@@ -950,7 +951,6 @@ MonoBehaviour:
     type: 3}
   GridSize: {x: 10, y: 4}
   TilesMargin: {x: 0.1, y: 0.1}
-  MovedUnit: {fileID: 0}
 --- !u!4 &1593181503
 Transform:
   m_ObjectHideFlags: 0
@@ -1009,6 +1009,10 @@ MonoBehaviour:
     team: 0
   UnitPrefab: {fileID: 646032747307505916, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
     type: 3}
+  NextController: {fileID: 1195857550}
+  MoveButton: {fileID: 1722586822}
+  AttackButton: {fileID: 558165115}
+  CancelButton: {fileID: 2088461415}
 --- !u!4 &1658442653
 Transform:
   m_ObjectHideFlags: 0
@@ -1021,7 +1025,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1659063776
 GameObject:
@@ -1095,54 +1099,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1659063776}
   m_CullTransparentMesh: 0
---- !u!1 &1679460750
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1679460752}
-  - component: {fileID: 1679460751}
-  m_Layer: 0
-  m_Name: BattleScreenManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1679460751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1679460750}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11f81a823d482e04f89c5b24dda4777d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MovedUnit: {fileID: 0}
-  GridController: {fileID: 1593181502}
-  AttackButton: {fileID: 558165115}
-  MoveButton: {fileID: 1722586822}
-  BackButton: {fileID: 2088461415}
---- !u!4 &1679460752
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1679460750}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1722586820
 GameObject:
   m_ObjectHideFlags: 0

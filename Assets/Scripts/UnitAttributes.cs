@@ -7,6 +7,7 @@ using UnityEngine;
 public enum Attribute
 {
     Range,
+    AttackRange,
     Defence,
     Attack,
     MaxHealth
