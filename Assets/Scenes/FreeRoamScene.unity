@@ -491,16 +491,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 646032747307505918, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
+    - target: {fileID: 646032746028395117, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
         type: 3}
-      propertyPath: AllowFreeMove
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 646032747307505918, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
-        type: 3}
-      propertyPath: WalkArea
+      propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1271010423}
+      objectReference: {fileID: 0}
+    - target: {fileID: 646032746028395117, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 646032747191166942, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 646032747679364212, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5750422051122071728, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2126885459089918058, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
         type: 3}
       propertyPath: m_IsActive
@@ -516,31 +531,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 646032746028395117, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
+    - target: {fileID: 646032747307505918, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
         type: 3}
-      propertyPath: m_Mesh
+      propertyPath: AllowFreeMove
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 646032747307505918, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
+        type: 3}
+      propertyPath: WalkArea
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 646032746028395117, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5750422051122071728, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 646032747191166942, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 646032747679364212, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1271010423}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0c36c3d1eed3ad46842409b5a6cf0bf, type: 3}
 --- !u!1001 &678853396
@@ -1890,6 +1890,38 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6952719226877733702, guid: 1006595c0241515409ec1810d1527921,
+        type: 3}
+      propertyPath: UnitsInStock.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6952719226877733702, guid: 1006595c0241515409ec1810d1527921,
+        type: 3}
+      propertyPath: UnitsInStock.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6952719226877733702, guid: 1006595c0241515409ec1810d1527921,
+        type: 3}
+      propertyPath: UnitsInStock.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6952719226877733702, guid: 1006595c0241515409ec1810d1527921,
+        type: 3}
+      propertyPath: UnitsInStock.Array.data[0].Unit
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6952719226877733702, guid: 1006595c0241515409ec1810d1527921,
+        type: 3}
+      propertyPath: UnitsInStock.Array.data[1].Unit
+      value: 
+      objectReference: {fileID: 2975355820659398134, guid: a883a467ba4c402418cfaa1c915e0706,
+        type: 3}
+    - target: {fileID: 6952719226877733702, guid: 1006595c0241515409ec1810d1527921,
+        type: 3}
+      propertyPath: UnitsInStock.Array.data[2].Unit
+      value: 
+      objectReference: {fileID: 2975355820659398134, guid: a883a467ba4c402418cfaa1c915e0706,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1006595c0241515409ec1810d1527921, type: 3}
 --- !u!1001 &4717977707004171352

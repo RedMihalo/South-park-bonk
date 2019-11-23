@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class Tile : MonoBehaviour
 {
     public Button ActiveButton;
 
     public GameObject CurrentUnit = null;
+
+    public class TileClickedEvent : UnityEvent<Tile> { }
+    public TileClickedEvent OnClicked = new TileClickedEvent();
 
     public Transform UnitPositionTransform;
     public Vector3 UnitPosition
@@ -28,10 +32,7 @@ public class Tile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ActiveButton.onClick.AddListener(() => {
-            // BattleScreenManager.SetUnitCurrentTile(this);  BattleScreenManager.MoveUnit(UnitPosition);
-            BattleScreenManager.TileClicked(this);
-        });
+        ActiveButton.onClick.AddListener(() => OnClicked.Invoke(this));
     }
     
 

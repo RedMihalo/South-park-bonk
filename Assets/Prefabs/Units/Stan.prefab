@@ -484,6 +484,7 @@ GameObject:
   - component: {fileID: 646032747307505888}
   - component: {fileID: 5256876424703654637}
   - component: {fileID: 5738648133718972753}
+  - component: {fileID: 6209465474796180576}
   m_Layer: 0
   m_Name: Stan
   m_TagString: Untagged
@@ -520,11 +521,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49fcaea62a7464441bccb9bd4261c542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AllowFreeMove: 0
+  WalkArea: {fileID: 0}
   AcceptanceRadius: 0.05
   Speed: 5
   WaveTime: 0.5
   BonesSet: {fileID: 646032746380880879}
-  CurrentTile: {fileID: 0}
   CharacterController: {fileID: 646032747307505888}
   Animator: {fileID: 646032747307505919}
   OnDestinationReached:
@@ -581,15 +583,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78e5b2e20a76ea24da770de3e381391f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Attributes:
-  - Attribute: 0
-    value: 5
-  - Attribute: 1
-    value: 1
-  - Attribute: 2
-    value: 2
-  - Attribute: 3
-    value: 10
+  Attributes: []
+  AttributesPreset: {fileID: 11400000, guid: 82bb52706d36d084bb1f24742723aaa4, type: 2}
 --- !u!114 &5738648133718972753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -602,14 +597,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00e0ff23c8043c0429c9c0c609b62add, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitName: Stan
   animator: {fileID: 646032747307505919}
   Attributes: {fileID: 5256876424703654637}
   Mover: {fileID: 646032747307505918}
+  InitialGridPosition: {x: 0, y: 0}
+  CurrentTile: {fileID: 0}
+  team: 0
   OnDamageTaken:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: BattleUnit+DamageEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  OnAttackFinished:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &6209465474796180576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646032747307505916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad51a8a8c5474e94bbc150afbac1a0e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIPanel: {fileID: 3924634533336491076}
+  CharacterPickButton: {fileID: 2498841648185176991}
+  Circle: {fileID: 2042325761029575027}
 --- !u!1 &646032747332007338
 GameObject:
   m_ObjectHideFlags: 0
@@ -1121,7 +1140,6 @@ GameObject:
   - component: {fileID: 4647728961086082030}
   - component: {fileID: 786955323940125285}
   - component: {fileID: 2498841648185176991}
-  - component: {fileID: 9090345723486530755}
   m_Layer: 5
   m_Name: PickButton
   m_TagString: Untagged
@@ -1202,20 +1220,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &9090345723486530755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3915507501710783879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad51a8a8c5474e94bbc150afbac1a0e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CharacterPickButton: {fileID: 2498841648185176991}
-  Circle: {fileID: 2042325761029575027}
 --- !u!1 &3924634533336491076
 GameObject:
   m_ObjectHideFlags: 0
@@ -1368,7 +1372,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5745344138026535991
 RectTransform:
   m_ObjectHideFlags: 0

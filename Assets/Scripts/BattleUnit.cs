@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class BattleUnit : MonoBehaviour
 {
+    public string unitName;
+
     public Animator animator;
     public UnitAttributes Attributes;
     public ObjectMover Mover;
@@ -21,6 +23,8 @@ public class BattleUnit : MonoBehaviour
     [System.Serializable]
     public class DamageEvent : UnityEvent<BattleUnit, BattleUnit, int> { }; // this, dealer, amount
     public DamageEvent OnDamageTaken = new DamageEvent();
+
+    public UnityEvent OnAttackFinished = new UnityEvent();
 
     private bool bBusy = false;
 
@@ -54,7 +58,7 @@ public class BattleUnit : MonoBehaviour
 
     public void MoveToStartPosition()
     {
-        Tile startingTile = BattleScreenManager.GetGridController().GetTile(InitialGridPosition);
+        Tile startingTile = GridController.GetGridController().GetTile(InitialGridPosition);
         CurrentTile = startingTile;
         // this shouldn't be here
         CurrentTile.CurrentUnit = gameObject;
@@ -66,7 +70,7 @@ public class BattleUnit : MonoBehaviour
         bBusy = false;
         CurrentTarget.ReceiveDamage(this, Attributes.GetAttributeValue(Attribute.Attack));
         animator.SetBool("IsAttacking", false);
-        BattleScreenManager.SetMovedUnit(null);
+        OnAttackFinished.Invoke();
         // BattleScreenManager.SetCurrentState(BattleManagerState.ModePicking);
     }
 

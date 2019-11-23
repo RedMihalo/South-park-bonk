@@ -821,9 +821,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SerializedUnits:
-  - positionInGrid: {x: 0, y: 0}
+  - attributes: []
+    positionInGrid: {x: 0, y: 0}
     team: 1
-  - positionInGrid: {x: 0, y: 1}
+  - attributes: []
+    positionInGrid: {x: 0, y: 1}
     team: 1
   UnitPrefab: {fileID: 646032747307505916, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
     type: 3}
@@ -993,9 +995,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SerializedUnits:
-  - positionInGrid: {x: 0, y: 0}
+  - attributes:
+    - Attribute: 0
+      value: 0
+    - Attribute: 0
+      value: 0
+    - Attribute: 0
+      value: 0
+    positionInGrid: {x: 0, y: 0}
     team: 0
-  - positionInGrid: {x: 0, y: 1}
+  - attributes: []
+    positionInGrid: {x: 0, y: 1}
     team: 0
   UnitPrefab: {fileID: 646032747307505916, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
     type: 3}
@@ -1116,7 +1126,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovedUnit: {fileID: 0}
   GridController: {fileID: 1593181502}
-  BattleShadeImage: {fileID: 841428531}
   AttackButton: {fileID: 558165115}
   MoveButton: {fileID: 1722586822}
   BackButton: {fileID: 2088461415}

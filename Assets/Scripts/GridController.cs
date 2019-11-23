@@ -10,7 +10,11 @@ public class GridController : MonoBehaviour
     public Vector2 TilesMargin;
     List<Tile> tiles = new List<Tile>();
 
-    public GameObject MovedUnit;
+    private static GridController _controller;
+    public static GridController GetGridController()
+    {
+        return _controller;
+    }
 
     public static int ManhattanDistance(Vector2Int a, Vector2Int b)
     {
@@ -20,6 +24,7 @@ public class GridController : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        _controller = this;
         Vector3 spawnPosition = transform.position;
         Tile lastSpawnedTile = null;
 
@@ -43,9 +48,24 @@ public class GridController : MonoBehaviour
             t.transform.Translate(new Vector3(t.GetWorldBounds().size.x / 2, -t.GetWorldBounds().size.y / 2, 0));
     }
 
+    public List<Tile> Gettiles()
+    {
+        List<Tile> toReturn = new List<Tile>();
+        tiles.ForEach((Tile t) => toReturn.Add(t));
+        return toReturn;
+    }
+
     public Tile GetTile(Vector2Int positionInGrid)
     {
         return tiles.Find((Tile t) => { return t.PositionInGrid == positionInGrid; });
+    }
+
+    public void MoveUnit(GameObject unit, Tile target)
+    {
+        unit.GetComponent<BattleUnit>().CurrentTile.CurrentUnit = null;
+        unit.GetComponent<BattleUnit>().CurrentTile = target;
+        unit.GetComponent<ObjectMover>().SetCurrentTarget(target.UnitPosition);
+        target.CurrentUnit = unit;
     }
 
     public void EnableValidTiles(Predicate<Tile> Predicate)
