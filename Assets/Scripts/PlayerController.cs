@@ -47,8 +47,8 @@ public class PlayerController : Controller
         switch(state)
         {
             case ControllerState.Atttacking:
-                GridController.GetGridController().EnableValidTiles((Tile t) => { return UnitInMeleeRange(t, CurrentUnit) &&
-                    t.CurrentUnit.GetComponent<BattleUnit>().team != CurrentUnit.GetComponent<BattleUnit>().team; });
+                GridController.GetGridController().EnableValidTiles((Tile t) => { return UnitInAttackRange(t, CurrentUnit)
+                    && t.CurrentUnit.GetComponent<BattleUnit>().team != CurrentUnit.GetComponent<BattleUnit>().team; });
                 break;
             case ControllerState.Moving:
                 GridController.GetGridController().EnableValidTiles((Tile t) => { return TileInMoveRange(t, CurrentUnit); });

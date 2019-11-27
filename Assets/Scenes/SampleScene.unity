@@ -870,7 +870,8 @@ MonoBehaviour:
   - attributes: []
     positionInGrid: {x: 0, y: 0}
     team: 1
-    prefab: {fileID: 0}
+    prefab: {fileID: 2975355820659398134, guid: a883a467ba4c402418cfaa1c915e0706,
+      type: 3}
   Units: []
   CurrentUnit: {fileID: 0}
   UnitPrefab: {fileID: 646032747307505916, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
@@ -1059,7 +1060,8 @@ MonoBehaviour:
   - attributes: []
     positionInGrid: {x: 0, y: 1}
     team: 0
-    prefab: {fileID: 646032747307505916, guid: a0c36c3d1eed3ad46842409b5a6cf0bf, type: 3}
+    prefab: {fileID: 2975355820659398134, guid: a883a467ba4c402418cfaa1c915e0706,
+      type: 3}
   Units: []
   CurrentUnit: {fileID: 0}
   UnitPrefab: {fileID: 646032747307505916, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,

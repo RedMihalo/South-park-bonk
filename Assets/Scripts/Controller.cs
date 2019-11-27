@@ -43,18 +43,18 @@ public abstract class Controller : MonoBehaviour
             Unit.GetComponent<UnitAttributes>().GetAttributeValue(Attribute.Range);
     };
 
-    protected static readonly Func<Tile, GameObject, bool> TileInMeleeAttackRange = (Tile t, GameObject Unit) =>
+    protected static readonly Func<Tile, GameObject, bool> TileInAttackRange = (Tile t, GameObject Unit) =>
     {
-        if(Unit.GetComponent<BattleUnit>().CurrentTile == null)
+        if(Unit.GetComponent<BattleUnit>().CurrentTile == t)
             return false;
         return 
-            GridController.ManhattanDistance(Unit.GetComponent<BattleUnit>().CurrentTile.PositionInGrid, t.PositionInGrid) <=
+            GridController.ManhattanDistance(Unit.GetComponent<BattleUnit>().CurrentTile, t) <=
             Unit.GetComponent<UnitAttributes>().GetAttributeValue(Attribute.AttackRange);
     };
 
-    protected static readonly Func<Tile, GameObject, bool> UnitInMeleeRange = (Tile t, GameObject Unit) =>
+    protected static readonly Func<Tile, GameObject, bool> UnitInAttackRange = (Tile t, GameObject Unit) =>
     {
-        return TileInMeleeAttackRange(t, Unit) && t.CurrentUnit != null;
+        return TileInAttackRange(t, Unit) && t.CurrentUnit != null;
     };
 
 

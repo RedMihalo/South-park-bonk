@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class AIController : Controller
 {
@@ -20,66 +21,26 @@ public class AIController : Controller
     {
         List<GameObject> unitsWithTarget = Units.FindAll((GameObject o) => o.GetComponent<BattleUnit>().HasUnitsInAttackRange());
         if(unitsWithTarget.Count > 0)
-            Attack();
+        {
+            CurrentUnit = unitsWithTarget[UnityEngine.Random.Range(0, unitsWithTarget.Count)];
+            List<GameObject> possibleTargets = CurrentUnit.GetComponent<BattleUnit>().GetUnitsInRange();
+            Attack(possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Count)]);
+        }
         else
             Move();
     }
 
-    private void Attack()
-    {
-        throw new System.NotImplementedException();
-    }
-
     private void Move()
     {
-        PickUnit(Units[Random.Range(0, Units.Count)]);
-        Tile target = GridController.GetGridController().GetTile(
-            CurrentUnit.GetComponent<BattleUnit>().CurrentTile.PositionInGrid + new Vector2Int(-1, 0)
-            );
-        List<GameObject> potentialUnits = Manager.NextController.GetUnits().FindAll((GameObject o) => {
-            return GridController.ManhattanDistance(
-                CurrentUnit.GetComponent<BattleUnit>().CurrentTile, o.GetComponent<BattleUnit>().CurrentTile
-                ) <= CurrentUnit.GetComponent<UnitAttributes>().GetAttributeValue(Attribute.Range);
-        });
-        potentialUnits.Sort((GameObject a, GameObject b) =>
-        {
-            return GridController.ManhattanDistance(a.GetComponent<BattleUnit>().CurrentTile, b.GetComponent<BattleUnit>().CurrentTile);
-        });
-        Debug.Log(potentialUnits.Count);
-        if(potentialUnits.Count == 0)
-        {
-            Debug.Log("BONGOS");
-            PassControl();
-            return;
-        }
-
-        MoveUnit(GridController.GetGridController().GetTile(potentialUnits[0].GetComponent<BattleUnit>().CurrentTile.PositionInGrid + new Vector2Int(1, 0)));
-        // GridController.GetGridController().EnableValidTiles((Tile t) => potentialUnits.Contains(t.CurrentUnit));
-
-        // StartCoroutine(PassCorutine());
-
-        //var possibleTargets = NextController.GetUnits();
-        //possibleTargets.Sort((GameObject a, GameObject b) =>
-        //{
-        //    return GridController.ManhattanDistance(a.GetComponent<BattleUnit>().CurrentTile, b.GetComponent<BattleUnit>().CurrentTile);
-        //});
-
-
-        //GameObject unitToMoveTo = possibleTargets.Count > 0 ? possibleTargets[0] : null;
-        //if(unitToMoveTo)
-        //    throw new System.Exception("Oh boy");
-
-        //List<Tile> targetTiles = GridController.GetGridController().Gettiles().FindAll((Tile t) => TileInMoveRange(t, unitToMoveTo));
-        //targetTiles.Sort((Tile a, Tile b) => 
-        //    GridController.ManhattanDistance(a, b)
-        //);
-
-        //MoveUnit(targetTiles[0]);
+        Tuple<BattleUnit, Tile> moveInfo = GetMoveInfo();
+        CurrentUnit = moveInfo.Item1.gameObject;
+        MoveUnit(moveInfo.Item2);
+        // GridController.GetGridController().MoveUnit(moveInfo.Item1.gameObject, moveInfo.Item2);
     }
 
     private List<Tile> GetTileNextToTarget(GameObject target)
     {
-        return GridController.GetGridController().GetTiles().FindAll((Tile t) => Controller.TileInMeleeAttackRange(t, target));
+        return GridController.GetGridController().GetTiles().FindAll((Tile t) => Controller.TileInAttackRange(t, target));
     }
 
     private IEnumerator PassCorutine()
@@ -92,9 +53,14 @@ public class AIController : Controller
 
     public override void ReceiveControl()
     {
+        ChooseAction();
+    }
+
+    private Tuple<BattleUnit, Tile> GetMoveInfo()
+    {
         List<GameObject> nextUnits = Manager.NextController.GetUnits();
 
-        BattleUnit battleUnit = Units[Random.Range(0, Units.Count)].GetComponent<BattleUnit>();
+        BattleUnit battleUnit = Units[UnityEngine.Random.Range(0, Units.Count)].GetComponent<BattleUnit>();
         BattleUnit target = battleUnit.ClosestUnit();
         target.GetComponent<CharacterPicker>().PickerEnabled = true;
 
@@ -106,10 +72,9 @@ public class AIController : Controller
 
         Tile targetTile = battleUnit.CurrentTile.GetClosestTile(tiles);
 
-        GridController.GetGridController().EnableValidTiles((Tile t) => t == targetTile);
+        targetTile = GridController.GetDestinationTileInRange(battleUnit.CurrentTile, targetTile, battleUnit.GetComponent<UnitAttributes>().GetAttributeValue(Attribute.Range));
 
-        StartCoroutine(PassCorutine());
-        // ChooseAction();
+        return new Tuple<BattleUnit, Tile>(battleUnit, targetTile);
     }
 
     private bool TileInRange(Tile t, GameObject unit)

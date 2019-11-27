@@ -41,13 +41,16 @@ public class BattleUnit : MonoBehaviour
     {
         List<GameObject> units = new List<GameObject>();
         GridController.GetGridController().GetTiles().FindAll(
-            (Tile t) => t.CurrentUnit != null && t.CurrentUnit.GetComponent<BattleUnit>().team != team
+            (Tile t) => t.CurrentUnit != null 
+            && t.CurrentUnit.GetComponent<BattleUnit>().team != team
+            && GridController.ManhattanDistance(t, CurrentTile) <= GetComponent<UnitAttributes>().GetAttributeValue(Attribute.AttackRange)
             ).ForEach((Tile t) => units.Add(t.CurrentUnit));
         return units;
     }
 
     public bool HasUnitsInAttackRange()
     {
+        return GetUnitsInRange().Count > 0;
         return GridController.GetGridController().GetTiles()
             .FindAll((Tile t) => GridController.ManhattanDistance(CurrentTile, t) <= GetComponent<UnitAttributes>().GetAttributeValue(Attribute.AttackRange))
             .FindAll((Tile t) => t.CurrentUnit != null)
@@ -102,8 +105,8 @@ public class BattleUnit : MonoBehaviour
     {
         List<BattleUnit> units = new List<BattleUnit>(FindObjectsOfType<BattleUnit>());
         units.RemoveAll((BattleUnit b) => b.team == team || b == this);
-        units.Sort((BattleUnit a, BattleUnit b) => GridController.ManhattanDistance(a.CurrentTile, b.CurrentTile));
-        return units.FirstOrDefault();
+        units.Sort((BattleUnit a, BattleUnit b) => GridController.ManhattanDistance(a.CurrentTile, this.CurrentTile) - GridController.ManhattanDistance(b.CurrentTile, this.CurrentTile));
+        return units[0];
     }
 
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GridController : MonoBehaviour
@@ -91,5 +92,40 @@ public class GridController : MonoBehaviour
         foreach(var T in tiles)
             T.SetTileTargetable(bEnabled);
     }
+
+    public static Tile GetDestinationTileInRange(Tile start, Tile dest, int range)
+    {
+        if(ManhattanDistance(start, dest) <= range)
+            return dest;
+        List<Tile> open = GridController.GetGridController().GetTiles();
+        List<Tile> toVisit = new List<Tile>();
+        Stack<Tile> visited = new Stack<Tile>();
+
+        Tile current = start;
+        while(current != null)
+        {
+            visited.Push(current);
+            open.Remove(current);
+            List<Tile> neighbours = current.GetNeighbors();
+            while(neighbours.Count == 0 && current != null)
+            {
+                current = visited.Pop();
+                neighbours = current.GetNeighbors();
+            }
+
+            foreach(Tile t in current.GetNeighbors())
+            {
+                if(!visited.Contains(t) && open.Contains(t))
+                    toVisit.Add(t);
+            }
+            if(visited.Count == range || current == null || open.Count == 0)
+                break;
+            toVisit.Sort((Tile a, Tile b) => ManhattanDistance(a, dest) - ManhattanDistance(b, dest));
+            current = toVisit[0];
+        }
+
+        return current;
+    }
+
 
 }

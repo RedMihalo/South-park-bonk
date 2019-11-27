@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 193c922d3ec3a734e93abe471166fc3e, type: 3}
-  m_Name: StanAttributes
+  m_Name: KyleAttributes
   m_EditorClassIdentifier: 
   Attributes:
   - Attribute: 0
-    value: 5
+    value: 4
   - Attribute: 1
-    value: 1
+    value: 3
   - Attribute: 2
-    value: 2
+    value: 1
   - Attribute: 3
-    value: 2
+    value: 3
   - Attribute: 4
-    value: 10
+    value: 7

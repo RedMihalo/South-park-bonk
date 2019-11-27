@@ -65,7 +65,13 @@ public class Tile : MonoBehaviour
     public Tile GetClosestTile(List<Tile> filter)
     {
         List<Tile> tiles = filter.Where((Tile t) => t != this).ToList();
-        tiles.Sort((Tile a, Tile b) => GridController.ManhattanDistance(a, b));
-        return tiles.FirstOrDefault();
+        tiles.Sort((Tile a, Tile b) => GridController.ManhattanDistance(a, this) - GridController.ManhattanDistance(b, this));
+        return tiles[0];
+    }
+
+    public List<Tile> GetNeighbors()
+    {
+        List<Tile> toReturn = GridController.GetGridController().GetTiles();
+        return toReturn.Where((Tile t) => GridController.ManhattanDistance(this, t) == 1).ToList();
     }
 }
