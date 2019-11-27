@@ -11,6 +11,7 @@ public class UnitSerializeInfo
     public List<AttributeValuePair> attributes;
     public Vector2Int positionInGrid;
     public UnitTeam team;
+    public GameObject prefab;
 
     public static UnitSerializeInfo SerializeUnit(GameObject unit)
     {

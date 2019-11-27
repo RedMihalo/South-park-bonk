@@ -36,7 +36,7 @@ public class AIController : Controller
         Tile target = GridController.GetGridController().GetTile(
             CurrentUnit.GetComponent<BattleUnit>().CurrentTile.PositionInGrid + new Vector2Int(-1, 0)
             );
-        List<GameObject> potentialUnits = NextController.GetUnits().FindAll((GameObject o) => {
+        List<GameObject> potentialUnits = Manager.NextController.GetUnits().FindAll((GameObject o) => {
             return GridController.ManhattanDistance(
                 CurrentUnit.GetComponent<BattleUnit>().CurrentTile, o.GetComponent<BattleUnit>().CurrentTile
                 ) <= CurrentUnit.GetComponent<UnitAttributes>().GetAttributeValue(Attribute.Range);
@@ -79,7 +79,7 @@ public class AIController : Controller
 
     private List<Tile> GetTileNextToTarget(GameObject target)
     {
-        return GridController.GetGridController().Gettiles().FindAll((Tile t) => Controller.TileInMeleeAttackRange(t, target));
+        return GridController.GetGridController().GetTiles().FindAll((Tile t) => Controller.TileInMeleeAttackRange(t, target));
     }
 
     private IEnumerator PassCorutine()
@@ -92,6 +92,28 @@ public class AIController : Controller
 
     public override void ReceiveControl()
     {
-        ChooseAction();
+        List<GameObject> nextUnits = Manager.NextController.GetUnits();
+
+        BattleUnit battleUnit = Units[Random.Range(0, Units.Count)].GetComponent<BattleUnit>();
+        BattleUnit target = battleUnit.ClosestUnit();
+        target.GetComponent<CharacterPicker>().PickerEnabled = true;
+
+        List<Tile> tiles = GridController.GetGridController().GetTiles();
+        tiles = tiles.FindAll((Tile t) =>
+        {
+            return TileInRange(t, target.gameObject);
+        });
+
+        Tile targetTile = battleUnit.CurrentTile.GetClosestTile(tiles);
+
+        GridController.GetGridController().EnableValidTiles((Tile t) => t == targetTile);
+
+        StartCoroutine(PassCorutine());
+        // ChooseAction();
+    }
+
+    private bool TileInRange(Tile t, GameObject unit)
+    {
+        return GridController.ManhattanDistance(unit.GetComponent<BattleUnit>().CurrentTile, t) == 1;
     }
 }

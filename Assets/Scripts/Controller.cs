@@ -23,13 +23,15 @@ public abstract class Controller : MonoBehaviour
     public GameObject UnitPrefab;
 
     // public BattleScreenManager BattleManager;
-    public Controller NextController;
+    // public Controller NextController;
+    public BattleManager Manager;
 
     protected UnitTeam team;
     protected int MoveOrder;
 
     private UnityEngine.Events.UnityAction DestinationReachedCallback;
     private UnityEngine.Events.UnityAction AttackFinishedCallback;
+    public UnityEngine.Events.UnityEvent OnPassControl = new UnityEngine.Events.UnityEvent();
 
     protected static readonly Func<Tile, GameObject, bool> TileInMoveRange = (Tile t, GameObject Unit) =>
     {
@@ -68,7 +70,7 @@ public abstract class Controller : MonoBehaviour
     {
         foreach(UnitSerializeInfo info in SerializedUnits)
         {
-            GameObject lastObject = Instantiate(UnitPrefab, transform.position, Quaternion.identity);
+            GameObject lastObject = Instantiate(info.prefab, transform.position, Quaternion.identity);
             Units.Add(lastObject);
             info.team = team;
             UnitSerializeInfo.DeserializeUnit(lastObject, info);
@@ -120,6 +122,6 @@ public abstract class Controller : MonoBehaviour
     public virtual void PassControl()
     {
         CurrentUnit = null;
-        NextController.ReceiveControl();
+        OnPassControl.Invoke();
     }
 }

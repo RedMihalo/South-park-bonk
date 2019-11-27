@@ -28,11 +28,11 @@ public class PlayerController : Controller
             picker.OnCharacterPicked.AddListener((CharacterPicker p) => this.PickUnit(p.gameObject));
         }
 
-        GridController.GetGridController().Gettiles().ForEach(
+        GridController.GetGridController().GetTiles().ForEach(
             (Tile t) => t.OnClicked.AddListener((Tile tt) => PickTile(tt))
             );
 
-        SetState(ControllerState.ModePicking);
+        // SetState(ControllerState.ModePicking);
     }
 
     private void SetState(ControllerState s)
@@ -76,6 +76,7 @@ public class PlayerController : Controller
 
     public override void ReceiveControl()
     {
+        Debug.Log("SEGSDDSHD");
         SetState(ControllerState.ModePicking);
     }
 
@@ -107,8 +108,8 @@ public class PlayerController : Controller
 
     public override void PassControl()
     {
-        base.PassControl();
         DisableButtons();
         GridController.GetGridController().SetGridEnabled(false);
+        base.PassControl();
     }
 }

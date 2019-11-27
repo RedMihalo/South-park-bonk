@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -28,6 +29,7 @@ public class BattleUnit : MonoBehaviour
 
     private bool bBusy = false;
 
+
     private void Start()
     {
         MaxHealth = gameObject.GetComponent<UnitAttributes>().GetAttributeValue(Attribute.MaxHealth);
@@ -38,7 +40,7 @@ public class BattleUnit : MonoBehaviour
     public List<GameObject> GetUnitsInRange()
     {
         List<GameObject> units = new List<GameObject>();
-        GridController.GetGridController().Gettiles().FindAll(
+        GridController.GetGridController().GetTiles().FindAll(
             (Tile t) => t.CurrentUnit != null && t.CurrentUnit.GetComponent<BattleUnit>().team != team
             ).ForEach((Tile t) => units.Add(t.CurrentUnit));
         return units;
@@ -46,7 +48,7 @@ public class BattleUnit : MonoBehaviour
 
     public bool HasUnitsInAttackRange()
     {
-        return GridController.GetGridController().Gettiles()
+        return GridController.GetGridController().GetTiles()
             .FindAll((Tile t) => GridController.ManhattanDistance(CurrentTile, t) <= GetComponent<UnitAttributes>().GetAttributeValue(Attribute.AttackRange))
             .FindAll((Tile t) => t.CurrentUnit != null)
             .FindAll((Tile t) => t.CurrentUnit.GetComponent<BattleUnit>().team != team)
@@ -94,6 +96,14 @@ public class BattleUnit : MonoBehaviour
         Health -= amount;
         Health = Mathf.Clamp(Health, 0, MaxHealth);
         OnDamageTaken.Invoke(this, damageDealer, amount);
+    }
+
+    public BattleUnit ClosestUnit()
+    {
+        List<BattleUnit> units = new List<BattleUnit>(FindObjectsOfType<BattleUnit>());
+        units.RemoveAll((BattleUnit b) => b.team == team || b == this);
+        units.Sort((BattleUnit a, BattleUnit b) => GridController.ManhattanDistance(a.CurrentTile, b.CurrentTile));
+        return units.FirstOrDefault();
     }
 
 }

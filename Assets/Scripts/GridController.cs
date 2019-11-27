@@ -53,7 +53,7 @@ public class GridController : MonoBehaviour
             t.transform.Translate(new Vector3(t.GetWorldBounds().size.x / 2, -t.GetWorldBounds().size.y / 2, 0));
     }
 
-    public List<Tile> Gettiles()
+    public List<Tile> GetTiles()
     {
         List<Tile> toReturn = new List<Tile>();
         tiles.ForEach((Tile t) => toReturn.Add(t));

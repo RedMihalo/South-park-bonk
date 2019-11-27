@@ -464,6 +464,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 558165113}
   m_CullTransparentMesh: 0
+--- !u!1 &644418204
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 644418206}
+  - component: {fileID: 644418205}
+  m_Layer: 0
+  m_Name: BattleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &644418205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644418204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 411c7d530115fb84581103f60a82190b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Controllers:
+  - {fileID: 1658442652}
+  - {fileID: 1195857550}
+--- !u!4 &644418206
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644418204}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &841428529
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,12 +870,17 @@ MonoBehaviour:
   - attributes: []
     positionInGrid: {x: 0, y: 0}
     team: 1
-  - attributes: []
-    positionInGrid: {x: 0, y: 1}
-    team: 1
+    prefab: {fileID: 0}
+  Units: []
+  CurrentUnit: {fileID: 0}
   UnitPrefab: {fileID: 646032747307505916, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
     type: 3}
-  NextController: {fileID: 1658442652}
+  Manager: {fileID: 644418205}
+  OnPassControl:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!4 &1195857551
 Transform:
   m_ObjectHideFlags: 0
@@ -1004,12 +1055,21 @@ MonoBehaviour:
       value: 0
     positionInGrid: {x: 0, y: 0}
     team: 0
+    prefab: {fileID: 646032747307505916, guid: a0c36c3d1eed3ad46842409b5a6cf0bf, type: 3}
   - attributes: []
     positionInGrid: {x: 0, y: 1}
     team: 0
+    prefab: {fileID: 646032747307505916, guid: a0c36c3d1eed3ad46842409b5a6cf0bf, type: 3}
+  Units: []
+  CurrentUnit: {fileID: 0}
   UnitPrefab: {fileID: 646032747307505916, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
     type: 3}
-  NextController: {fileID: 1195857550}
+  Manager: {fileID: 644418205}
+  OnPassControl:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   MoveButton: {fileID: 1722586822}
   AttackButton: {fileID: 558165115}
   CancelButton: {fileID: 2088461415}

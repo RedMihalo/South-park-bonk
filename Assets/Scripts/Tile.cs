@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System.Linq;
 
 public class Tile : MonoBehaviour
 {
@@ -61,5 +62,10 @@ public class Tile : MonoBehaviour
         img.color = imgColor;
     }
 
-
+    public Tile GetClosestTile(List<Tile> filter)
+    {
+        List<Tile> tiles = filter.Where((Tile t) => t != this).ToList();
+        tiles.Sort((Tile a, Tile b) => GridController.ManhattanDistance(a, b));
+        return tiles.FirstOrDefault();
+    }
 }
