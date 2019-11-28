@@ -8,15 +8,15 @@ public class BattleUnit : MonoBehaviour
 {
     public string unitName;
 
-    public Animator animator;
-    public UnitAttributes Attributes;
-    public ObjectMover Mover;
+    protected Animator animator;
+    private UnitAttributes Attributes;
+    private ObjectMover Mover;
     public Vector2Int InitialGridPosition;
     public Tile CurrentTile = null;
 
     public UnitTeam team;
 
-    private BattleUnit CurrentTarget;
+    protected BattleUnit CurrentTarget;
 
     public int MaxHealth { get; private set; }
     public int Health { get; private set; }
@@ -32,6 +32,10 @@ public class BattleUnit : MonoBehaviour
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
+        Attributes = GetComponent<UnitAttributes>();
+        Mover = GetComponent<ObjectMover>();
+
         MaxHealth = gameObject.GetComponent<UnitAttributes>().GetAttributeValue(Attribute.MaxHealth);
         Health = MaxHealth;
 
@@ -51,11 +55,6 @@ public class BattleUnit : MonoBehaviour
     public bool HasUnitsInAttackRange()
     {
         return GetUnitsInRange().Count > 0;
-        return GridController.GetGridController().GetTiles()
-            .FindAll((Tile t) => GridController.ManhattanDistance(CurrentTile, t) <= GetComponent<UnitAttributes>().GetAttributeValue(Attribute.AttackRange))
-            .FindAll((Tile t) => t.CurrentUnit != null)
-            .FindAll((Tile t) => t.CurrentUnit.GetComponent<BattleUnit>().team != team)
-            .Count > 0;
     }
 
     public void Attack(BattleUnit target)
@@ -64,7 +63,10 @@ public class BattleUnit : MonoBehaviour
             return;
         bBusy = true;
         animator.SetBool("IsAttacking", true);
+        Mover.FaceObject(target.gameObject);
         CurrentTarget = target;
+
+        Debug.Log("Attack");
     }
 
     public void Attack(GameObject target)
@@ -72,10 +74,9 @@ public class BattleUnit : MonoBehaviour
         BattleUnit asBattleUnit = target.GetComponent<BattleUnit>();
         if(!asBattleUnit)
         {
-            Debug.Log("Missing battle unit componet");
+            Debug.LogError("Missing battle unit componet");
             return;
         }
-        Mover.FaceObject(target);
         Attack(asBattleUnit);
     }
 
@@ -85,10 +86,11 @@ public class BattleUnit : MonoBehaviour
         GridController.GetGridController().MoveUnit(gameObject, startingTile);
     }
 
-    public void FinishAttack()
+    public virtual void FinishAttack()
     {
         bBusy = false;
         CurrentTarget.ReceiveDamage(this, Attributes.GetAttributeValue(Attribute.Attack));
+        CurrentTarget = null;
         animator.SetBool("IsAttacking", false);
         OnAttackFinished.Invoke();
         // BattleScreenManager.SetCurrentState(BattleManagerState.ModePicking);
@@ -96,6 +98,7 @@ public class BattleUnit : MonoBehaviour
 
     public void ReceiveDamage(BattleUnit damageDealer, int amount)
     {
+        amount = Mathf.Clamp(amount - GetComponent<UnitAttributes>().GetAttributeValue(Attribute.Defence), 0, amount);
         Health -= amount;
         Health = Mathf.Clamp(Health, 0, MaxHealth);
         OnDamageTaken.Invoke(this, damageDealer, amount);
@@ -105,6 +108,7 @@ public class BattleUnit : MonoBehaviour
     {
         List<BattleUnit> units = new List<BattleUnit>(FindObjectsOfType<BattleUnit>());
         units.RemoveAll((BattleUnit b) => b.team == team || b == this);
+        units.ForEach((BattleUnit b) => { if(b.CurrentTile == null) Debug.Log("Dupa: " + b.name + b.team); });
         units.Sort((BattleUnit a, BattleUnit b) => GridController.ManhattanDistance(a.CurrentTile, this.CurrentTile) - GridController.ManhattanDistance(b.CurrentTile, this.CurrentTile));
         return units[0];
     }

@@ -24,7 +24,6 @@ public class BattleManager : MonoBehaviour
 
     private void ActivateNextController()
     {
-        Debug.Log("Next turn");
         index++;
         index = index % Controllers.Count;
         CurrentController.ReceiveControl();

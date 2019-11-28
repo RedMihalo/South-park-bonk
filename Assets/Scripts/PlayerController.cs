@@ -76,7 +76,6 @@ public class PlayerController : Controller
 
     public override void ReceiveControl()
     {
-        Debug.Log("SEGSDDSHD");
         SetState(ControllerState.ModePicking);
     }
 

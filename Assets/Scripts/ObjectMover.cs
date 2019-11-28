@@ -26,6 +26,11 @@ public class ObjectMover : MonoBehaviour
 
     public UnityEvent OnDestinationReached = new UnityEvent();
 
+    private void Start()
+    {
+        Debug.Log(GetComponent<BattleUnit>());
+    }
+
     // Update is called once per frame
     void Update()
     {
