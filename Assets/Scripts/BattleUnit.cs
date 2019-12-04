@@ -57,6 +57,12 @@ public class BattleUnit : MonoBehaviour
         return GetUnitsInRange().Count > 0;
     }
 
+    public void MoveToStartPosition()
+    {
+        Tile startingTile = GridController.GetGridController().GetTile(InitialGridPosition);
+        GridController.GetGridController().MoveUnit(gameObject, startingTile);
+    }
+
     public void Attack(BattleUnit target)
     {
         if(bBusy)
@@ -65,8 +71,7 @@ public class BattleUnit : MonoBehaviour
         animator.SetBool("IsAttacking", true);
         Mover.FaceObject(target.gameObject);
         CurrentTarget = target;
-
-        Debug.Log("Attack");
+        Debug.Log("EEEEEEEEEE");
     }
 
     public void Attack(GameObject target)
@@ -78,12 +83,6 @@ public class BattleUnit : MonoBehaviour
             return;
         }
         Attack(asBattleUnit);
-    }
-
-    public void MoveToStartPosition()
-    {
-        Tile startingTile = GridController.GetGridController().GetTile(InitialGridPosition);
-        GridController.GetGridController().MoveUnit(gameObject, startingTile);
     }
 
     public virtual void FinishAttack()

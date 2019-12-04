@@ -20,7 +20,6 @@ public abstract class Controller : MonoBehaviour
     public List<GameObject> Units = new List<GameObject>();
     [HideInInspector]
     public GameObject CurrentUnit = null;
-    public GameObject UnitPrefab;
 
     // public BattleScreenManager BattleManager;
     // public Controller NextController;

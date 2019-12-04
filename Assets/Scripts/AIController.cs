@@ -19,9 +19,11 @@ public class AIController : Controller
 
     private void ChooseAction()
     {
+        Debug.Log("Choose action");
         List<GameObject> unitsWithTarget = Units.FindAll((GameObject o) => o.GetComponent<BattleUnit>().HasUnitsInAttackRange());
         if(unitsWithTarget.Count > 0)
         {
+            Debug.Log("attack");
             CurrentUnit = unitsWithTarget[UnityEngine.Random.Range(0, unitsWithTarget.Count)];
             List<GameObject> possibleTargets = CurrentUnit.GetComponent<BattleUnit>().GetUnitsInRange();
             Attack(possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Count)]);
@@ -32,6 +34,7 @@ public class AIController : Controller
 
     private void Move()
     {
+        Debug.Log("move");
         Tuple<BattleUnit, Tile> moveInfo = GetMoveInfo();
         CurrentUnit = moveInfo.Item1.gameObject;
         MoveUnit(moveInfo.Item2);
