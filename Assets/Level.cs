@@ -8,20 +8,21 @@ using Random = UnityEngine.Random;
 public class Level : MonoBehaviour
 {
     public NODE_TYPE type;
+    public List<Sprite> sprites;
     public enum NODE_TYPE
     {
         FIGHT,
         SHOP,
-        OTHER
+        STORY
     }
 
     void Start()
     {
-        type = (NODE_TYPE)Random.Range(0, Enum.GetNames(typeof(NODE_TYPE)).Length - 1);
+        type = (NODE_TYPE)Random.Range(0, Enum.GetNames(typeof(NODE_TYPE)).Length);
 
         GameObject text = this.transform.Find("Text").gameObject;
         text.GetComponent<Text>().text = type.ToString();
-        GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/UI/Levels/" + type.ToString());
+        GetComponent<Image>().sprite = sprites[(int)type];
     }
     
     

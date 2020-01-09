@@ -10,7 +10,7 @@ public class MapGenerator : MonoBehaviour
     public int stages = 10;
     public int maxOptions = 3;
     public GameObject Level;
-    public List<List<GameObject>> map;
+    public List<GameObject> map;
     public int curentStage = 0;
 
 
@@ -19,33 +19,29 @@ public class MapGenerator : MonoBehaviour
     // Start is called before the first frame update
     void setUp()
     {
-        map = new List<List<GameObject>>();
-        for (int i = 0; i < stages; i++)
+        map = new List<GameObject>();
+        int amount = Random.Range(1, maxOptions + 1);
+        for (int j = 0; j < amount; j++)
         {
-            List<GameObject> stage = new List<GameObject>();
-            int amount = Random.Range(1, maxOptions);
-            for (int j = 0; j < amount; j++)
-            {
-                GameObject level = Instantiate(Level, this.transform) as GameObject;
-                level.SetActive(false);
-                stage.Add(level);
-            }
-            map.Add(stage);
+            GameObject obj = Instantiate(Level, Vector2.zero, Quaternion.identity) as GameObject;
+            obj.transform.SetParent(this.transform);
+            map.Add(obj);
         }
     }
 
     public void changeStage()
     {
-        foreach(GameObject level in map[curentStage])
-        {
-            level.SetActive(true);
-            curentStage++;
-        }
+        //for(int i = 0; i < this.transform.childCount; i++)
+        //{
+        //    this.transform.GetChild(i).gameObject.SetActive(false);
+        //}
+        this.transform.DetachChildren();
+        setUp();
     }
     void Start()
     {
         setUp();
-        changeStage();
+        //changeStage();
     }
 
 
