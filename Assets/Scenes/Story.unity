@@ -156,8 +156,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 199.33003}
-  m_SizeDelta: {x: 483.53, y: 235.34}
+  m_AnchoredPosition: {x: 0.00000023842, y: 120}
+  m_SizeDelta: {x: 896.2, y: 368.04}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &212438396
 MonoBehaviour:
@@ -235,7 +235,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 1b7f42fb51696df46a7a6aff22e295b5, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -264,13 +264,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71f7d0a3e597ba34ba06e9d8a8705c0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue:
-    name: Mr Hankey
+  dialogues:
+  - name: 'Mr Hankey '
+    sprite: {fileID: 21300000, guid: 1b7f42fb51696df46a7a6aff22e295b5, type: 3}
     sentences:
-    - Howdyyy Hoe!
-    - "TEST\t\t"
-    - "Test2\t"
-    - Test3
+    - How-dy-ho !
+    - Oh, I'm SO sorry. I took Ambien two nights ago and I called the school kids
+      homos
+    - Wul, I thought maybe I could get them in a defecation lawsuit
+  - name: Mr Mackey
+    sprite: {fileID: 21300000, guid: 628a954e967a01d4bb4db6635b38d2a1, type: 3}
+    sentences:
+    - "M'kay\t"
+    - Mmmm'kay.
+    - M'KAY!
+    - "Ummm\u2026Drugs are bad M'kay."
+    - " So just try and STAY POSITIVE, stay away from DRUGS AND ALCOHOL, and in the
+      meantime, I\u2019m going to put you on a HEAVY REGIMEN OF PROZAC."
+    - Mmmm'kay
+  - name: Satan
+    sprite: {fileID: 21300000, guid: 5526eac7f80b4b540a1e2f0131c6b027, type: 3}
+    sentences:
+    - Hail Satan!
+    - Without evil there could be no good, so it must be good to be evil sometimes.
+    - Halloween is supposed to be for everyone. Everybody, I'm sorry. This party is
+      for you. It's for all of you who make my life so special. If I don't realize
+      that, then I'm no better than a rich American teenage girl.
+    - I have had ENOUGH of you!
+  - name: Chef
+    sprite: {fileID: 21300000, guid: 88c7fe2efcfe1d34980717cd6aee8832, type: 3}
+    sentences:
+    - How's it going?
+    - "You can\u2019t teach a gay dog straight tricks."
+    - "Look, children, this is all I\u2019m going to say about drugs. STAY AWAY FROM
+      THEM. There\u2019s a time and a place for everything and it\u2019s called COLLEGE."
 --- !u!1 &238056368
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,8 +336,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -437}
-  m_SizeDelta: {x: 500.27, y: 247.4}
+  m_AnchoredPosition: {x: 0, y: -553}
+  m_SizeDelta: {x: 500.3, y: 233.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &238056370
 MonoBehaviour:
@@ -548,8 +575,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -134.4, y: 79.5}
-  m_SizeDelta: {x: 230.2, y: 65.2}
+  m_AnchoredPosition: {x: 0.31747, y: 81}
+  m_SizeDelta: {x: 499.63, y: 62.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1120039665
 MonoBehaviour:
@@ -652,10 +679,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -708,8 +735,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -6, y: -54.8}
-  m_SizeDelta: {x: 487, y: 230.4}
+  m_AnchoredPosition: {x: -0.44, y: -28.28}
+  m_SizeDelta: {x: 445.07, y: 134.53}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1342745965
 MonoBehaviour:
@@ -874,8 +901,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 157.5, y: -112.58}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 161.7, y: -90.515}
+  m_SizeDelta: {x: 149.75, y: 52.37}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1657336329
 MonoBehaviour:
@@ -897,7 +924,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -953,7 +980,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -969,7 +996,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1657336327}
-  m_CullTransparentMesh: 0
+  m_CullTransparentMesh: 1
 --- !u!1 &2024878422
 GameObject:
   m_ObjectHideFlags: 0

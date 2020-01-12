@@ -2,15 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogueTrigger : MonoBehaviour
 {
 
-    public Dialogue dialogue;
+    public List<Dialogue> dialogues;
 
     public void TriggerDialogue()
     {
-        FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+        int index = Random.Range(0, dialogues.Count);
+        GetComponent<Image>().sprite = dialogues[index].sprite;
+        FindObjectOfType<DialogueManager>().StartDialogue(dialogues[index]);
     }
 
 }
