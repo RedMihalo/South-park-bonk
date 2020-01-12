@@ -23,8 +23,7 @@ public class MapGenerator : MonoBehaviour
         int amount = Random.Range(1, maxOptions + 1);
         for (int j = 0; j < amount; j++)
         {
-            GameObject obj = Instantiate(Level, Vector2.zero, Quaternion.identity) as GameObject;
-            obj.transform.SetParent(this.transform);
+            GameObject obj = Instantiate(Level, this.transform) as GameObject;
             map.Add(obj);
         }
     }
