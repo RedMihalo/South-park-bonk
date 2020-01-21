@@ -17,7 +17,6 @@ public class MapGenerator : MonoBehaviour
         for (int j = 0; j < amount; j++)
         {
             GameObject obj = Instantiate(Level, this.transform) as GameObject;
-            obj.transform.SetParent(this.transform);
         }
     }
     void Start()

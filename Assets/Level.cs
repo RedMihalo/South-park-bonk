@@ -26,6 +26,10 @@ public class Level : MonoBehaviour
         }
         if (type == NODE_TYPE.STORY)
         {
+            Button.onClick.AddListener(() => ChangeScene("Story"));
+        }
+        if (type == NODE_TYPE.SHOP)
+        {
             Button.onClick.AddListener(() => ChangeScene("FreeRoamScene"));
         }
         GameObject text = this.transform.Find("Text").gameObject;
