@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed27f63cc0e4184cb1e7a0716d4efdb, type: 3}
+  m_Name: Kayle
+  m_EditorClassIdentifier: 
+  itemName: Kayle
+  itemMinature: {fileID: 4386072932892709191, guid: b85478e82cde8b14598b6ba0405b8096,
+    type: 3}
+  cost: 500
