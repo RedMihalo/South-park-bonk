@@ -25,6 +25,8 @@ public class BattleUnit : MonoBehaviour
     public class DamageEvent : UnityEvent<BattleUnit, BattleUnit, int> { }; // this, dealer, amount
     public DamageEvent OnDamageTaken = new DamageEvent();
 
+    public DamageEvent OnDeath = new DamageEvent();
+
     public UnityEvent OnAttackFinished = new UnityEvent();
 
     private bool bBusy = false;
@@ -102,6 +104,8 @@ public class BattleUnit : MonoBehaviour
         Health -= amount;
         Health = Mathf.Clamp(Health, 0, MaxHealth);
         OnDamageTaken.Invoke(this, damageDealer, amount);
+        if(Health <= 0)
+            OnDeath.Invoke(this, damageDealer, amount);
     }
 
     public BattleUnit ClosestUnit()

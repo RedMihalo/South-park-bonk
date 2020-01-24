@@ -73,9 +73,7 @@ public abstract class Controller : MonoBehaviour
 
     private void SpawnUnits()
     {
-
         SerializedUnits = GetUnitSerializeInfos();
-        
         
         foreach(UnitSerializeInfo info in SerializedUnits)
         {
@@ -87,6 +85,12 @@ public abstract class Controller : MonoBehaviour
         Units.ForEach((GameObject u) =>
         {
             u.GetComponent<BattleUnit>().MoveToStartPosition();
+            u.GetComponent<BattleUnit>().OnDeath.AddListener((BattleUnit b, BattleUnit d, int a) =>
+            {
+                Units.Remove(b.gameObject);
+                Destroy(b.gameObject);
+            }
+            );
         });
     }
 

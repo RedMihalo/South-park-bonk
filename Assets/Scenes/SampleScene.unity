@@ -951,6 +951,14 @@ MonoBehaviour:
     positionInGrid: {x: 0, y: 0}
     team: 1
     prefab: {fileID: 646032747307505916, guid: a0c36c3d1eed3ad46842409b5a6cf0bf, type: 3}
+  - attributes: []
+    positionInGrid: {x: 0, y: 1}
+    team: 1
+    prefab: {fileID: 646032747307505916, guid: a0c36c3d1eed3ad46842409b5a6cf0bf, type: 3}
+  - attributes: []
+    positionInGrid: {x: 0, y: 2}
+    team: 1
+    prefab: {fileID: 646032747307505916, guid: a0c36c3d1eed3ad46842409b5a6cf0bf, type: 3}
   stanPrefab: {fileID: 646032747307505916, guid: a0c36c3d1eed3ad46842409b5a6cf0bf,
     type: 3}
   kaylePrefab: {fileID: 5746509772104690952, guid: b45591ff0447ae24cb0ca3270085845c,

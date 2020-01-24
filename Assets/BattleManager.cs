@@ -18,15 +18,15 @@ public class BattleManager : MonoBehaviour
         ActivateNextController();
     }
 
-    private void Update()
-    {
-    }
-
     private void ActivateNextController()
     {
         index++;
         index = index % Controllers.Count;
-        CurrentController.ReceiveControl();
+
+        if(CurrentController.GetUnits().Count > 0)
+            CurrentController.ReceiveControl();
+        else
+            Debug.Log("KONICE");
     }
 
 }
