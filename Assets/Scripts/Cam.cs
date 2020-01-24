@@ -7,88 +7,82 @@ using System;
 
 public class Cam : MonoBehaviour, IPointerClickHandler
 {
-    //private Renderer CamTarget;
-    //public RawImage CamImage;
-    // public Texture CamTexture;
-    /*public RawImage image;
+    public RawImage imageTarget;
     public RawImage image1;
     public RawImage image2;
-    public RawImage image3;*/
+    public RawImage image3;
+
+    private WebCamTexture camera;
+    private WebCamTexture camera1;
+    private WebCamTexture camera2;
+    private WebCamTexture camera3;
 
     public Text textUI;
+    public bool camStarted;
 
-    [TextArea]
-    public string textytext;
     // Start is called before the first frame update
-    void Start()
-    {
-       /* CamTarget = GetComponent<Renderer>();
+    void Start() {
+        camStarted = false;
+        textUI.text= "";
+        /*camStarted = false;
+        StartCam();*/
+    }
 
-        
-        */
-        //GetComponent<Renderer>().material.mainTexture = camera;
-        
-        textytext = "Debugging" + Environment.NewLine;
-       /* CamTarget = GetComponent<Renderer>();
+    void Update() {
 
-        
-        */
-        //GetComponent<Renderer>().material.mainTexture = camera;
-        
+    }
+
+    public void OnPointerClick(PointerEventData eventData) {
+         textUI.text += "" + camStarted;
+        if (camStarted == false) {
+            StartCam();
+        }
+        if (camStarted == true){
+            StopCam();
+        }   
+//        StartCam();
+    }
+
+    private void StartCam() {
+
+        camStarted = true;
+        textUI.text = "Debugging" + Environment.NewLine;
+
         WebCamDevice[] devices = WebCamTexture.devices;
         
         if (devices.Length == 0)
         {
-            textytext += "No camera detected\n";
+            textUI.text += "No camera detected\n";
         }
-
-        WebCamTexture camera = null;
-        WebCamTexture camera1 = null;
-        WebCamTexture camera2 = null;
-        WebCamTexture camera3 = null;
 
         foreach(var device in devices){
-            textytext  += device.name;
+            textUI.text += device.name;
         }
-        //textytext  += device.name;
-            
-           // device
         
         if(devices.Length >=1)
         {
             camera = new WebCamTexture(devices[0].name);
             camera.Play();   
-            //image.texture = camera;
+            imageTarget.texture = camera;
         }
-       /* if(devices.Length >=2)
+        if(devices.Length >=2)
         {
             camera1 = new WebCamTexture(devices[1].name);
             camera1.Play();   
-            image.texture = camera1;
+            image1.texture = camera1;
         }
         if(devices.Length >=3)
         {
             camera2 = new WebCamTexture(devices[2].name);
             camera2.Play();   
-            image.texture = camera2;
+            image2.texture = camera2;
         }
         if(devices.Length >=4)
         {
             camera3 = new WebCamTexture(devices[3].name);
             camera3.Play();   
-            image.texture = camera3;
-        }*/
-
-
-
-
-        textUI.text = textytext;
-             
-        /*Renderer renderer = GetComponent<Renderer>();
-        renderer.material.mainTexture = camera;*/
-
-
-
+            image3.texture = camera3;
+        }
         
         /*WebCamDevice[] cameras = WebCamTexture.devices;
         foreach (var c in cameras)
@@ -109,11 +103,26 @@ public class Cam : MonoBehaviour, IPointerClickHandler
             fromt += c.isFrontFacing ? 1 : 0;
         messagetext += "\nNumber of front facing cameras: " + fromt;
         message.text = messagetext;*/
-
     }
 
-    public void OnPointerClick(PointerEventData eventData) // 3
-    {
-         textUI.text += "CLIIIIIIIIIIIIIICKED";
+    private void StopCam(){
+        WebCamDevice[] devices = WebCamTexture.devices;
+
+        if(devices.Length >=1)
+        {
+            camera.Stop();   
+        }
+        if(devices.Length >=2)
+        {
+            camera1.Stop();   
+        }
+        if(devices.Length >=3)
+        {
+            camera2.Stop();   
+        }
+        if(devices.Length >=4)
+        {
+            camera3.Stop();   
+        }
     }
 }
