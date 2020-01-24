@@ -8,6 +8,10 @@ public class Clicked : MonoBehaviour, IPointerClickHandler
 {
     public Text textUI;
 
+    public Clicked() {
+
+    }
+
     void Start()
     {
 
@@ -21,5 +25,10 @@ public class Clicked : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData) // 3
     {
          textUI.text+="CLIIIIIIIIIIIIIICKED";
+    }
+
+    public void Test()
+    {
+        textUI.text+="SUCSESECUSCEUSEUSECS";
     }
 }

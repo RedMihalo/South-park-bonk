@@ -5,15 +5,15 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
 
-public class Cam : MonoBehaviour
+public class Cam : MonoBehaviour, IPointerClickHandler
 {
     //private Renderer CamTarget;
     //public RawImage CamImage;
     // public Texture CamTexture;
-    public RawImage image;
+    /*public RawImage image;
     public RawImage image1;
     public RawImage image2;
-    public RawImage image3;
+    public RawImage image3;*/
 
     public Text textUI;
 
@@ -58,9 +58,9 @@ public class Cam : MonoBehaviour
         {
             camera = new WebCamTexture(devices[0].name);
             camera.Play();   
-            image.texture = camera;
+            //image.texture = camera;
         }
-        if(devices.Length >=2)
+       /* if(devices.Length >=2)
         {
             camera1 = new WebCamTexture(devices[1].name);
             camera1.Play();   
@@ -77,14 +77,16 @@ public class Cam : MonoBehaviour
             camera3 = new WebCamTexture(devices[3].name);
             camera3.Play();   
             image.texture = camera3;
-        }
+        }*/
 
 
 
 
         textUI.text = textytext;
              
-        
+        /*Renderer renderer = GetComponent<Renderer>();
+        renderer.material.mainTexture = camera;*/
+
 
 
         
@@ -112,6 +114,6 @@ public class Cam : MonoBehaviour
 
     public void OnPointerClick(PointerEventData eventData) // 3
     {
-         textytext+="CLIIIIIIIIIIIIIICKED";
+         textUI.text += "CLIIIIIIIIIIIIIICKED";
     }
 }
