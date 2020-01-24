@@ -26,11 +26,6 @@ public class ObjectMover : MonoBehaviour
 
     public UnityEvent OnDestinationReached = new UnityEvent();
 
-    private void Start()
-    {
-        Debug.Log(GetComponent<BattleUnit>());
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -62,8 +57,11 @@ public class ObjectMover : MonoBehaviour
     public void ReachTarget()
     {
         bTargetReached = true;
-        Animator.SetBool("IsWalking", false);
-        Animator.SetBool("IsWaving", true);
+        if(Animator != null)
+        {
+            Animator.SetBool("IsWalking", false);
+            Animator.SetBool("IsWaving", true);
+        }
         OnDestinationReached.Invoke();
     }
 
@@ -109,9 +107,12 @@ public class ObjectMover : MonoBehaviour
             return;
 
         FacePosition(newTarget);
-        Animator.SetBool("IsWaving", false);
+        if(Animator != null)
+        {
+            Animator.SetBool("IsWaving", false);
 
-        Animator.SetBool("IsWalking", true);
+            Animator.SetBool("IsWalking", true);
+        }
     }
 
     public void FaceObject(GameObject target)
@@ -121,6 +122,7 @@ public class ObjectMover : MonoBehaviour
 
     public void FacePosition(Vector3 position)
     {
-        BonesSet.transform.rotation = Quaternion.Euler(0, position.x > transform.position.x ? 180 : 0, 0);
+        if(BonesSet != null)
+            BonesSet.transform.rotation = Quaternion.Euler(0, position.x > transform.position.x ? 180 : 0, 0);
     }
 }

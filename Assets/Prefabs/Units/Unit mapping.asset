@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Unit mapping
   m_EditorClassIdentifier: Assembly-CSharp::UnitPregfabsMap
-  mapping: []
+  mapping:
+  - name: Kayle
+    prefab: {fileID: 5746509772104690952, guid: b45591ff0447ae24cb0ca3270085845c,
+      type: 3}
+  - name: Stan
+    prefab: {fileID: 646032747307505916, guid: a0c36c3d1eed3ad46842409b5a6cf0bf, type: 3}
