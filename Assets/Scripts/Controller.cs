@@ -16,6 +16,8 @@ public enum ControllerState
 public abstract class Controller : MonoBehaviour
 {
     public List<UnitSerializeInfo> SerializedUnits = new List<UnitSerializeInfo>();
+    public GameObject stanPrefab;
+    public GameObject kaylePrefab;
     [HideInInspector]
     public List<GameObject> Units = new List<GameObject>();
     [HideInInspector]
@@ -67,6 +69,50 @@ public abstract class Controller : MonoBehaviour
 
     private void SpawnUnits()
     {
+        
+        SerializedUnits = new List<UnitSerializeInfo>();
+
+        if (!PlayerPrefs.HasKey("ChosenUnits"))
+        {
+            Debug.Log("nope ");
+            UnitSerializeInfo unitInfo = new UnitSerializeInfo();
+            unitInfo.prefab = stanPrefab;
+            unitInfo.team = UnitTeam.Player;
+            unitInfo.positionInGrid.x = 0;
+            unitInfo.positionInGrid.y = 0;
+            SerializedUnits.Add(unitInfo);
+        }
+        else
+        {
+           
+            ChosenUnits chosenUnits = JsonUtility.FromJson<ChosenUnits>(PlayerPrefs.GetString("ChosenUnits"));
+            Debug.Log("figth");
+            Debug.Log(PlayerPrefs.GetString("ChosenUnits"));
+            Debug.Log(chosenUnits.units);
+            for (int i = 0; i < chosenUnits.units.Count; i++)
+            {
+                if (chosenUnits.units[i].Equals("Stan"))
+                {
+                    UnitSerializeInfo unitInfo = new UnitSerializeInfo();
+                    unitInfo.prefab = stanPrefab;
+                    unitInfo.team = UnitTeam.Player;
+                    unitInfo.positionInGrid.x = 0;
+                    unitInfo.positionInGrid.y = i;
+                    SerializedUnits.Add(unitInfo);
+                }
+                else
+                {
+                    UnitSerializeInfo unitInfo = new UnitSerializeInfo();
+                    unitInfo.prefab = kaylePrefab;
+                    unitInfo.team = UnitTeam.Player;
+                    unitInfo.positionInGrid.x = 0;
+                    unitInfo.positionInGrid.y = i;
+                    SerializedUnits.Add(unitInfo);
+                }
+            }
+        }
+        
+        
         foreach(UnitSerializeInfo info in SerializedUnits)
         {
             GameObject lastObject = Instantiate(info.prefab, transform.position, Quaternion.identity);

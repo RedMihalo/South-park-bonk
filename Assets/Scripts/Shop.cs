@@ -60,6 +60,18 @@ public class Shop : MonoBehaviour
         {
             money = money - item.cost;
             PlayerPrefs.SetInt("money", money);
+            if (item.itemName.Equals("Stan"))
+            {
+                int i = PlayerPrefs.GetInt("Stan");
+                i++;
+                PlayerPrefs.SetInt("Stan",i);
+            }
+            if (item.itemName.Equals("Kayle"))
+            {
+                int i = PlayerPrefs.GetInt("Kayle");
+                i++;
+                PlayerPrefs.SetInt("Kayle", i);
+            }
         }
 
     }

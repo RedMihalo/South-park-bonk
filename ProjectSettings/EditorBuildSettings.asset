@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FreeRoamScene.unity
     guid: bc3a918e4a04269489a3dccac389fb3d
+  - enabled: 1
+    path: Assets/Scenes/UnitChoose.unity
+    guid: b22a229a1d8a6e246a91c9bac13063a8
   m_configObjects: {}
