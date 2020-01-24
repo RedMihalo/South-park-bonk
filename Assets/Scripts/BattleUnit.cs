@@ -65,13 +65,14 @@ public class BattleUnit : MonoBehaviour
 
     public void Attack(BattleUnit target)
     {
+        Debug.Log("Start attack");
         if(bBusy)
             return;
+        Debug.Log("Not busy");
         bBusy = true;
         animator.SetBool("IsAttacking", true);
         Mover.FaceObject(target.gameObject);
         CurrentTarget = target;
-        Debug.Log("EEEEEEEEEE");
     }
 
     public void Attack(GameObject target)

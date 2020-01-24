@@ -18,6 +18,11 @@ public class RangedBattleUnit : BattleUnit
         currentBall.GetComponent<Ball>().OnTargetReached.AddListener(() => TargetReached());
     }
 
+    private void Update()
+    {
+        Debug.Log(animator.GetBool("IsAttacking"));
+    }
+
     public void TargetReached()
     {
         Destroy(this.currentBall);
