@@ -16,14 +16,20 @@ public enum ControllerState
 public abstract class Controller : MonoBehaviour
 {
     public List<UnitSerializeInfo> SerializedUnits = new List<UnitSerializeInfo>();
+    public GameObject stanPrefab;
+    public GameObject kaylePrefab;
     [HideInInspector]
     public List<GameObject> Units = new List<GameObject>();
     [HideInInspector]
     public GameObject CurrentUnit = null;
 
+    public UnitPregfabsMap unitMapping;
+
     // public BattleScreenManager BattleManager;
     // public Controller NextController;
     public BattleManager Manager;
+
+    protected int spawnColumn = 0;
 
     protected UnitTeam team;
     protected int MoveOrder;
@@ -67,11 +73,14 @@ public abstract class Controller : MonoBehaviour
 
     private void SpawnUnits()
     {
+
+        SerializedUnits = GetUnitSerializeInfos();
+        
+        
         foreach(UnitSerializeInfo info in SerializedUnits)
         {
             GameObject lastObject = Instantiate(info.prefab, transform.position, Quaternion.identity);
             Units.Add(lastObject);
-            info.team = team;
             UnitSerializeInfo.DeserializeUnit(lastObject, info);
         }
 
@@ -80,6 +89,10 @@ public abstract class Controller : MonoBehaviour
             u.GetComponent<BattleUnit>().MoveToStartPosition();
         });
     }
+
+    protected abstract List<UnitSerializeInfo> GetUnitSerializeInfos();
+
+
     protected void Attack(GameObject target)
     {
         CurrentUnit.GetComponent<BattleUnit>().Attack(target);

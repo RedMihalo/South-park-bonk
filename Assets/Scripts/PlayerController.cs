@@ -111,4 +111,54 @@ public class PlayerController : Controller
         GridController.GetGridController().SetGridEnabled(false);
         base.PassControl();
     }
+
+    protected override List<UnitSerializeInfo> GetUnitSerializeInfos()
+    {
+        List<UnitSerializeInfo> SerializedUnits = new List<UnitSerializeInfo>();
+        if(!PlayerPrefs.HasKey("ChosenUnits"))
+        {
+            Debug.Log("nope ");
+            UnitSerializeInfo unitInfo = new UnitSerializeInfo
+            {
+                prefab = stanPrefab,
+                team = UnitTeam.Player
+            };
+            unitInfo.positionInGrid.x = 0;
+            unitInfo.positionInGrid.y = 0;
+            SerializedUnits.Add(unitInfo);
+        }
+        else
+        {
+
+            ChosenUnits chosenUnits = JsonUtility.FromJson<ChosenUnits>(PlayerPrefs.GetString("ChosenUnits"));
+            Debug.Log("figth");
+            Debug.Log(PlayerPrefs.GetString("ChosenUnits"));
+            Debug.Log(chosenUnits.units);
+            for(int i = 0; i < chosenUnits.units.Count; i++)
+            {
+                GameObject nextPrefab = GetUnitPrefab(chosenUnits.units[i]);
+                if(nextPrefab == null)
+                {
+                    Debug.LogError("Prefab not defined for : " + chosenUnits.units[i]);
+                    continue;
+                }
+                UnitSerializeInfo unitInfo = new UnitSerializeInfo
+                {
+                    prefab = nextPrefab,
+                    team = team
+                };
+                unitInfo.positionInGrid.x = spawnColumn;
+                unitInfo.positionInGrid.y = i;
+                SerializedUnits.Add(unitInfo);
+            }
+        }
+
+        return SerializedUnits;
+    }
+
+
+    private GameObject GetUnitPrefab(string name)
+    {
+        return unitMapping.mapping.Find((KeyToUnitPrefabMapping m) => m.name == name)?.prefab;
+    }
 }

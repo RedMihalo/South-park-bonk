@@ -8,9 +8,19 @@ public class RangedBattleUnit : BattleUnit
     public GameObject ballPrefab;
     private GameObject currentBall = null;
 
+    public override void Attack(BattleUnit target)
+    {
+        if(currentBall != null)
+            return;
+        CurrentTarget = target;
+        FinishAttack();
+    }
+
     public override void FinishAttack()
     {
         currentBall = Instantiate(ballPrefab, transform.position, transform.rotation);
+        currentBall.transform.localScale = new Vector3(0.2f, 0.2f, 1);
+        Debug.Log("Target: " + (CurrentTarget == null));
         currentBall.GetComponent<Ball>().Launch(CurrentTarget.gameObject);
 
         animator.SetBool("IsAttacking", false);

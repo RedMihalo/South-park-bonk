@@ -122,12 +122,12 @@ TextureImporter:
       name: Stan_Smile_0
       rect:
         serializedVersion: 2
-        x: 106
-        y: 567
-        width: 145
-        height: 287
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 100.99999
+        y: 562
+        width: 155.00003
+        height: 297
+      alignment: 9
+      pivot: {x: 0.49999994, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -143,11 +143,11 @@ TextureImporter:
       name: Stan_Smile_1
       rect:
         serializedVersion: 2
-        x: 394
-        y: 555
-        width: 145
-        height: 287
-      alignment: 0
+        x: 389
+        y: 550
+        width: 155
+        height: 297
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -185,11 +185,11 @@ TextureImporter:
       name: Stan_Smile_4
       rect:
         serializedVersion: 2
-        x: 73
-        y: 9
-        width: 544
-        height: 357
-      alignment: 0
+        x: 68
+        y: 4
+        width: 554
+        height: 367
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []

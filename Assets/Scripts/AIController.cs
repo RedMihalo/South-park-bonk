@@ -9,6 +9,7 @@ public class AIController : Controller
 
     public override void Start()
     {
+        spawnColumn = GridController.GetGridController().GridSize.x - 1;
         MoveOrder = 1;
         SerializedUnits.ForEach( (UnitSerializeInfo info) => {
             info.positionInGrid = new Vector2Int(GridController.GetGridController().GridSize.x - 1 - info.positionInGrid.x, info.positionInGrid.y);
@@ -83,5 +84,10 @@ public class AIController : Controller
     private bool TileInRange(Tile t, GameObject unit)
     {
         return GridController.ManhattanDistance(unit.GetComponent<BattleUnit>().CurrentTile, t) == 1;
+    }
+
+    protected override List<UnitSerializeInfo> GetUnitSerializeInfos()
+    {
+        return SerializedUnits;
     }
 }

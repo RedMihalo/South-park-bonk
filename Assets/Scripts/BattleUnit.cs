@@ -63,7 +63,7 @@ public class BattleUnit : MonoBehaviour
         GridController.GetGridController().MoveUnit(gameObject, startingTile);
     }
 
-    public void Attack(BattleUnit target)
+    public virtual void Attack(BattleUnit target)
     {
         Debug.Log("Start attack");
         if(bBusy)
