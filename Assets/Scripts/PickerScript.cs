@@ -58,7 +58,7 @@ public class PickerScript : MonoBehaviour
 
     private void OnButtonClick(string unitName)
     {
-        if(chosenUnits.units.Count <= 4)
+        if(chosenUnits.units.Count < 4)
         {
             chosenLimit--;
             chosenUnits.units.Add(unitName);
@@ -67,6 +67,8 @@ public class PickerScript : MonoBehaviour
 
     private void OnFightClick()
     {
+        if(chosenUnits.units.Count == 0)
+            return;
         string s = chosenUnits.Serialize();
         PlayerPrefs.SetString("ChosenUnits", s);
         Debug.Log(s);

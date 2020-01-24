@@ -23,9 +23,13 @@ public abstract class Controller : MonoBehaviour
     [HideInInspector]
     public GameObject CurrentUnit = null;
 
+    public UnitPregfabsMap unitMapping;
+
     // public BattleScreenManager BattleManager;
     // public Controller NextController;
     public BattleManager Manager;
+
+    protected int spawnColumn = 0;
 
     protected UnitTeam team;
     protected int MoveOrder;
@@ -91,24 +95,20 @@ public abstract class Controller : MonoBehaviour
             Debug.Log(chosenUnits.units);
             for (int i = 0; i < chosenUnits.units.Count; i++)
             {
-                if (chosenUnits.units[i].Equals("Stan"))
+                GameObject nextPrefab = GetUnitPrefab(chosenUnits.units[i]);
+                if(nextPrefab == null)
                 {
-                    UnitSerializeInfo unitInfo = new UnitSerializeInfo();
-                    unitInfo.prefab = stanPrefab;
-                    unitInfo.team = UnitTeam.Player;
-                    unitInfo.positionInGrid.x = 0;
-                    unitInfo.positionInGrid.y = i;
-                    SerializedUnits.Add(unitInfo);
+                    Debug.LogError("Prefab not defined for : " + chosenUnits.units[i]);
+                    continue;
                 }
-                else
+                UnitSerializeInfo unitInfo = new UnitSerializeInfo
                 {
-                    UnitSerializeInfo unitInfo = new UnitSerializeInfo();
-                    unitInfo.prefab = kaylePrefab;
-                    unitInfo.team = UnitTeam.Player;
-                    unitInfo.positionInGrid.x = 0;
-                    unitInfo.positionInGrid.y = i;
-                    SerializedUnits.Add(unitInfo);
-                }
+                    prefab = nextPrefab,
+                    team = team
+                };
+                unitInfo.positionInGrid.x = spawnColumn;
+                unitInfo.positionInGrid.y = i;
+                SerializedUnits.Add(unitInfo);
             }
         }
         
@@ -117,7 +117,6 @@ public abstract class Controller : MonoBehaviour
         {
             GameObject lastObject = Instantiate(info.prefab, transform.position, Quaternion.identity);
             Units.Add(lastObject);
-            info.team = team;
             UnitSerializeInfo.DeserializeUnit(lastObject, info);
         }
 
@@ -126,6 +125,12 @@ public abstract class Controller : MonoBehaviour
             u.GetComponent<BattleUnit>().MoveToStartPosition();
         });
     }
+
+    private GameObject GetUnitPrefab(string name)
+    {
+        return unitMapping.mapping.Find((KeyToUnitPrefabMapping m) => m.name == name)?.prefab;
+    }
+
     protected void Attack(GameObject target)
     {
         CurrentUnit.GetComponent<BattleUnit>().Attack(target);

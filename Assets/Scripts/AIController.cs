@@ -9,6 +9,7 @@ public class AIController : Controller
 
     public override void Start()
     {
+        spawnColumn = GridController.GetGridController().GridSize.x - 1;
         MoveOrder = 1;
         SerializedUnits.ForEach( (UnitSerializeInfo info) => {
             info.positionInGrid = new Vector2Int(GridController.GetGridController().GridSize.x - 1 - info.positionInGrid.x, info.positionInGrid.y);

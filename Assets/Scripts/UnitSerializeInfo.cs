@@ -6,6 +6,20 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 [Serializable]
+public class KeyToUnitPrefabMapping
+{
+    public string name;
+    public GameObject prefab;
+}
+
+[CreateAssetMenu(fileName = "Unit mapping", menuName = "ScriptableObjects/UnitMapping", order = 2)]
+public class UnitPregfabsMap : ScriptableObject
+{
+    public List<KeyToUnitPrefabMapping> mapping;
+}
+
+
+[Serializable]
 public class UnitSerializeInfo
 {
     public List<AttributeValuePair> attributes;
